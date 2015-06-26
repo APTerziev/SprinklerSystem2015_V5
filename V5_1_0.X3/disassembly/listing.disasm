@@ -1,0 +1,3229 @@
+Disassembly Listing for V5_1_0
+Generated From:
+C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/dist/default/debug/V5_1_0.X1.debug.elf
+2015-5-27 15:03:39
+
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/tmr2.c  --
+1:             /**
+2:               TMR2 Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 tmr2.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the TMR2 driver using MPLAB® Code Configurator
+12:            
+13:              @Description
+14:                This source file provides APIs for TMR2.
+15:                Generation Information :
+16:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+17:                    Device            :  PIC16F1507
+18:                    Driver Version    :  2.00
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 v1.34
+21:                    MPLAB             :  MPLAB X v2.35 or v3.00
+22:             */
+23:            
+24:            /*
+25:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+26:            
+27:            Microchip licenses to you the right to use, modify, copy and distribute
+28:            Software only when embedded on a Microchip microcontroller or digital signal
+29:            controller that is integrated into your product or third party product
+30:            (pursuant to the sublicense terms in the accompanying license agreement).
+31:            
+32:            You should refer to the license agreement accompanying this Software for
+33:            additional information regarding your rights and obligations.
+34:            
+35:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+36:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+37:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+38:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+39:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+40:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+41:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+42:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+43:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+44:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+45:             */
+46:            
+47:            /**
+48:              Section: Included Files
+49:             */
+50:            
+51:            #include <xc.h>
+52:            #include "tmr2.h"
+53:            
+54:            /**
+55:              Section: TMR2 APIs
+56:             */
+57:            
+58:            void TMR2_Initialize(void) {
+59:                // Set TMR2 to the options selected in the User Interface
+60:            
+61:                // TMR2ON off; T2CKPS 1:1; T2OUTPS 1:1; 
+62:                T2CON = 0x00;
+05E2  0020     MOVLB 0x0
+05E3  019C     CLRF T2CON
+63:            
+64:                // PR2 124; 
+65:                PR2 = 0x7C;
+05E4  307C     MOVLW 0x7C
+05E5  009B     MOVWF PR2
+66:            
+67:                // TMR2 0x0; 
+68:                TMR2 = 0x00;
+05E6  019A     CLRF TMR2
+69:            
+70:                // Clearing IF flag.
+71:                PIR1bits.TMR2IF = 0;
+05E7  1091     BCF PIR1, 0x1
+72:            
+73:                // Start TMR2
+74:                TMR2_StartTimer();
+05E8  2DFC     GOTO 0x5FC
+75:            }
+76:            
+77:            void TMR2_StartTimer(void) {
+78:                // Start the Timer by writing to TMRxON bit
+79:                T2CONbits.TMR2ON = 1;
+05FC  151C     BSF T2CON, 0x2
+80:            }
+05FD  0008     RETURN
+81:            
+82:            void TMR2_StopTimer(void) {
+83:                // Stop the Timer by writing to TMRxON bit
+84:                T2CONbits.TMR2ON = 0;
+85:            }
+86:            
+87:            uint8_t TMR2_ReadTimer(void) {
+88:                uint8_t readVal;
+89:            
+90:                readVal = TMR2;
+91:            
+92:                return readVal;
+93:            }
+94:            
+95:            void TMR2_WriteTimer(uint8_t timerVal) {
+96:                // Write to the Timer2 register
+97:                TMR2 = timerVal;
+98:            }
+99:            
+100:           void TMR2_LoadPeriodRegister(uint8_t periodVal) {
+101:               PR2 = periodVal;
+102:           }
+103:           
+104:           bool TMR2_HasOverflowOccured(void) {
+105:               // check if  overflow has occurred by checking the TMRIF bit
+106:               bool status = PIR1bits.TMR2IF;
+107:               if (status) {
+108:                   // Clearing IF flag.
+109:                   PIR1bits.TMR2IF = 0;
+110:               }
+111:               return status;
+112:           }
+113:           /**
+114:             End of File
+115:            */
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/tmr0.c  --
+1:             /**
+2:               TMR0 Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 tmr0.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the TMR0 driver using MPLAB® Code Configurator
+12:            
+13:              @Description
+14:                This source file provides APIs for TMR0.
+15:                Generation Information :
+16:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+17:                    Device            :  PIC16F1507
+18:                    Driver Version    :  2.00
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 v1.34
+21:                    MPLAB             :  MPLAB X v2.35 or v3.00
+22:             */
+23:            
+24:            /*
+25:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+26:            
+27:            Microchip licenses to you the right to use, modify, copy and distribute
+28:            Software only when embedded on a Microchip microcontroller or digital signal
+29:            controller that is integrated into your product or third party product
+30:            (pursuant to the sublicense terms in the accompanying license agreement).
+31:            
+32:            You should refer to the license agreement accompanying this Software for
+33:            additional information regarding your rights and obligations.
+34:            
+35:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+36:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+37:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+38:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+39:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+40:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+41:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+42:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+43:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+44:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+45:             */
+46:            
+47:            /**
+48:              Section: Included Files
+49:             */
+50:            
+51:            #include <xc.h>
+52:            #include "tmr0.h"
+53:            
+54:            /**
+55:              Section: Global Variables Definitions
+56:             */
+57:            
+58:            volatile uint8_t timer0ReloadVal;
+59:            
+60:            /**
+61:              Section: TMR0 APIs
+62:             */
+63:            
+64:            void TMR0_Initialize(void) {
+65:                // Set TMR0 to the options selected in the User Interface
+66:            
+67:                // PSA assigned; PS 1:64; TMRSE Increment_hi_lo; mask the nWPUEN and INTEDG bits
+68:                OPTION_REG = (OPTION_REG & 0xC0) | 0xD5 & 0x3F;
+05B7  0815     MOVF TMR0, W
+05B8  39C0     ANDLW 0xC0
+05B9  3815     IORLW 0x15
+05BA  0095     MOVWF TMR0
+69:            
+70:                // TMR0 60; 
+71:                TMR0 = 0x3C;
+05BB  303C     MOVLW 0x3C
+05BC  0020     MOVLB 0x0
+05BD  0095     MOVWF TMR0
+72:            
+73:                // Load the TMR value to reload variable
+74:                timer0ReloadVal = 60;
+05BE  00E8     MOVWF timer0ReloadVal
+75:            
+76:                // Clear Interrupt flag before enabling the interrupt
+77:                INTCONbits.TMR0IF = 0;
+05BF  110B     BCF INTCON, 0x2
+78:            
+79:                // Enabling TMR0 interrupt
+80:                INTCONbits.TMR0IE = 1;
+05C0  168B     BSF INTCON, 0x5
+81:            }
+05C1  0008     RETURN
+82:            
+83:            uint8_t TMR0_ReadTimer(void) {
+84:                uint8_t readVal;
+85:            
+86:                readVal = TMR0;
+87:            
+88:                return readVal;
+89:            }
+90:            
+91:            void TMR0_WriteTimer(uint8_t timerVal) {
+92:                // Write to the Timer0 register
+93:                TMR0 = timerVal;
+94:            }
+95:            
+96:            void TMR0_Reload(void) {
+97:                // Write to the Timer0 register
+98:                TMR0 = timer0ReloadVal;
+99:            }
+100:           
+101:           void TMR0_ISR(void) {
+102:           
+103:               // clear the TMR0 interrupt flag
+104:               INTCONbits.TMR0IF = 0;
+05F8  110B     BCF INTCON, 0x2
+105:           
+106:               TMR0 = timer0ReloadVal;
+05F9  0868     MOVF timer0ReloadVal, W
+05FA  0095     MOVWF TMR0
+107:           
+108:               // ticker function call;
+109:               // ticker is 1 -> Callback function gets called everytime this ISR executes
+110:               TMR0_CallBack();
+05FB  2DFE     GOTO 0x5FE
+111:           
+112:               // add your TMR0 interrupt custom code
+113:           }
+114:           
+115:           void TMR0_CallBack(void) {
+116:               // Add your custom callback code here
+117:               // this code executes every 1 TMR0 periods
+118:           }
+05FE  0008     RETURN
+119:           /**
+120:             End of File
+121:            */
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/pwm2.c  --
+1:             /**
+2:               PWM2 Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 pwm2.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the PWM2 driver using MPLAB® Code Configurator
+12:            
+13:              @Description
+14:                This source file provides implementations for driver APIs for PWM2.
+15:                Generation Information :
+16:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+17:                    Device            :  PIC16F1507
+18:                    Driver Version    :  2.00
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 v1.34
+21:                    MPLAB             :  MPLAB X v2.35 or v3.00
+22:             */
+23:            
+24:            /*
+25:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+26:            
+27:            Microchip licenses to you the right to use, modify, copy and distribute
+28:            Software only when embedded on a Microchip microcontroller or digital signal
+29:            controller that is integrated into your product or third party product
+30:            (pursuant to the sublicense terms in the accompanying license agreement).
+31:            
+32:            You should refer to the license agreement accompanying this Software for
+33:            additional information regarding your rights and obligations.
+34:            
+35:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+36:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+37:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+38:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+39:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+40:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+41:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+42:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+43:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+44:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+45:             */
+46:            
+47:            /**
+48:              Section: Included Files
+49:             */
+50:            
+51:            #include <xc.h>
+52:            #include "pwm2.h"
+53:            
+54:            /**
+55:              Section: PWM Module APIs
+56:             */
+57:            
+58:            void PWM2_Initialize(void) {
+59:                // Set the PWM to the options selected in the MPLAB® Code Configurator.
+60:                // PWM2POL active_hi; PWM2OE disabled; PWM2EN disabled; 
+61:                PWM2CON = 0x00;
+05E9  0196     CLRF TMR1
+62:            
+63:                // PWM2DCH 62; 
+64:                PWM2DCH = 0x3E;
+05EA  303E     MOVLW 0x3E
+05EB  0095     MOVWF TMR0
+65:            
+66:                // PWM2DCL 64; 
+67:                PWM2DCL = 0x40;
+05EC  3040     MOVLW 0x40
+05ED  0094     MOVWF 0x14
+68:            
+69:            }
+05EE  0008     RETURN
+70:            
+71:            void PWM2_LoadDutyValue(uint16_t dutyValue) {
+72:                // Writing to 8 MSBs of PWM duty cycle in PWMDCH register
+73:                PWM2DCH = (dutyValue & 0x03FC) >> 2;
+74:            
+75:                // Writing to 2 LSBs of PWM duty cycle in PWMDCL register
+76:                PWM2DCL = (dutyValue & 0x0003) << 6;
+77:            }
+78:            /**
+79:             End of File
+80:             */
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/pwm1.c  --
+1:             /**
+2:               PWM1 Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 pwm1.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the PWM1 driver using MPLAB® Code Configurator
+12:            
+13:              @Description
+14:                This source file provides implementations for driver APIs for PWM1.
+15:                Generation Information :
+16:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+17:                    Device            :  PIC16F1507
+18:                    Driver Version    :  2.00
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 v1.34
+21:                    MPLAB             :  MPLAB X v2.35 or v3.00
+22:             */
+23:            
+24:            /*
+25:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+26:            
+27:            Microchip licenses to you the right to use, modify, copy and distribute
+28:            Software only when embedded on a Microchip microcontroller or digital signal
+29:            controller that is integrated into your product or third party product
+30:            (pursuant to the sublicense terms in the accompanying license agreement).
+31:            
+32:            You should refer to the license agreement accompanying this Software for
+33:            additional information regarding your rights and obligations.
+34:            
+35:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+36:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+37:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+38:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+39:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+40:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+41:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+42:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+43:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+44:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+45:             */
+46:            
+47:            /**
+48:              Section: Included Files
+49:             */
+50:            
+51:            #include <xc.h>
+52:            #include "pwm1.h"
+53:            
+54:            /**
+55:              Section: PWM Module APIs
+56:             */
+57:            
+58:            void PWM1_Initialize(void) {
+59:                // Set the PWM to the options selected in the MPLAB® Code Configurator.
+60:                // PWM1EN enabled; PWM1POL active_hi; PWM1OE enabled; 
+61:                PWM1CON = 0xC0;
+05CA  30C0     MOVLW 0xC0
+05CB  002C     MOVLB 0xC
+05CC  0093     MOVWF PWM1CON
+62:            
+63:                // PWM1DCH 124; 
+64:                PWM1DCH = 0x7C;
+05CD  307C     MOVLW 0x7C
+05CE  0092     MOVWF PWM1DCH
+65:            
+66:                // PWM1DCL 192; 
+67:                PWM1DCL = 0xC0;
+05CF  30C0     MOVLW 0xC0
+05D0  0091     MOVWF PWM1DCL
+68:            
+69:            }
+05D1  0008     RETURN
+70:            
+71:            void PWM1_LoadDutyValue(uint16_t dutyValue) {
+72:                // Writing to 8 MSBs of PWM duty cycle in PWMDCH register
+73:                PWM1DCH = (dutyValue & 0x03FC) >> 2;
+0588  0871     MOVF 0x671, W
+0589  00F3     MOVWF 0x673
+058A  0870     MOVF 0x670, W
+058B  00F2     MOVWF 0x672
+058C  36F3     LSRF 0x673, F
+058D  0CF2     RRF 0x672, F
+058E  36F3     LSRF 0x673, F
+058F  0CF2     RRF 0x672, F
+0590  0872     MOVF 0x672, W
+0591  002C     MOVLB 0xC
+0592  0092     MOVWF PWM1DCH
+74:            
+75:                // Writing to 2 LSBs of PWM duty cycle in PWMDCL register
+76:                PWM1DCL = (dutyValue & 0x0003) << 6;
+0593  0870     MOVF 0x670, W
+0594  3903     ANDLW 0x3
+0595  00F2     MOVWF 0x672
+0596  0CF2     RRF 0x672, F
+0597  0CF2     RRF 0x672, F
+0598  0C72     RRF 0x672, W
+0599  39C0     ANDLW 0xC0
+059A  0091     MOVWF PWM1DCL
+77:            }
+059B  0008     RETURN
+78:            /**
+79:             End of File
+80:             */
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/pin_manager.c
+1:             /**
+2:               Generated Pin Manager File
+3:             
+4:               Company:
+5:                 Microchip Technology Inc.
+6:             
+7:               File Name:
+8:                 pin_manager.c
+9:             
+10:              Summary:
+11:                This is the Pin Manager file generated using MPLAB® Code Configurator
+12:            
+13:              Description:
+14:                This header file provides implementations for pin APIs for all pins selected in the GUI.
+15:                Generation Information :
+16:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+17:                    Device            :  PIC16F1507
+18:                    Driver Version    :  1.02
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 v1.34
+21:                    MPLAB             :  MPLAB X v2.35 or v3.00
+22:            */
+23:            
+24:            /*
+25:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+26:            
+27:            Microchip licenses to you the right to use, modify, copy and distribute
+28:            Software only when embedded on a Microchip microcontroller or digital signal
+29:            controller that is integrated into your product or third party product
+30:            (pursuant to the sublicense terms in the accompanying license agreement).
+31:            
+32:            You should refer to the license agreement accompanying this Software for
+33:            additional information regarding your rights and obligations.
+34:            
+35:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+36:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+37:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+38:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+39:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+40:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+41:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+42:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+43:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+44:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+45:            */
+46:            
+47:            #include <xc.h>
+48:            #include "pin_manager.h"
+49:            
+50:            void PIN_MANAGER_Initialize(void)
+51:            {
+52:                LATA = 0x00;
+054C  0022     MOVLB 0x2
+054D  018C     CLRF LATA
+53:                TRISA = 0x1F;
+054E  301F     MOVLW 0x1F
+054F  0021     MOVLB 0x1
+0550  008C     MOVWF TRISA
+54:                ANSELA = 0x03;
+0551  3003     MOVLW 0x3
+0552  0023     MOVLB 0x3
+0553  008C     MOVWF ANSELA
+55:                WPUA = 0x00;
+0554  0024     MOVLB 0x4
+0555  018C     CLRF WPUA
+56:            
+57:                LATB = 0x00;
+0556  0022     MOVLB 0x2
+0557  018D     CLRF LATB
+58:                TRISB = 0x30;
+0558  3030     MOVLW 0x30
+0559  0021     MOVLB 0x1
+055A  008D     MOVWF TRISB
+59:                ANSELB = 0x00;
+055B  0023     MOVLB 0x3
+055C  018D     CLRF ANSELB
+60:                WPUB = 0x00;
+055D  0024     MOVLB 0x4
+055E  018D     CLRF WPUB
+61:            
+62:                LATC = 0x80;
+055F  3080     MOVLW 0x80
+0560  0022     MOVLB 0x2
+0561  008E     MOVWF LATC
+63:                TRISC = 0x49;
+0562  3049     MOVLW 0x49
+0563  0021     MOVLB 0x1
+0564  008E     MOVWF TRISC
+64:                ANSELC = 0x41;
+0565  3041     MOVLW 0x41
+0566  0023     MOVLB 0x3
+0567  008E     MOVWF ANSELC
+65:            
+66:                OPTION_REGbits.nWPUEN = 0x01;
+0568  0021     MOVLB 0x1
+0569  1795     BSF OPTION_REG, 0x7
+67:            
+68:                APFCON = 0x00;
+056A  0022     MOVLB 0x2
+056B  019D     CLRF APFCON
+69:            
+70:                // enable interrupt-on-change individually    
+71:                IOCAN2 = 1;
+056C  0027     MOVLB 0x7
+056D  1512     BSF IOCAN, 0x2
+72:                IOCAP2 = 1;
+056E  1511     BSF IOCAP, 0x2
+73:                
+74:                // enable interrupt-on-change globally
+75:                INTCONbits.IOCIE = 1;        
+056F  158B     BSF 0x38B, 0x3
+76:                    
+77:            }
+0570  0008     RETURN
+78:            void PIN_MANAGER_IOC(void)
+79:            {
+80:                if(((IOCAN2 == 1) || (IOCAP2 == 1)) && (IOCAF2 == 1))
+05DA  0027     MOVLB 0x7
+05DB  1912     BTFSC IOCAN, 0x2
+05DC  2DDF     GOTO 0x5DF
+05DD  1D11     BTFSS IOCAP, 0x2
+05DE  0008     RETURN
+05DF  1913     BTFSC IOCAF, 0x2
+81:                {
+82:                    //@TODO Add handling code for IOC on pin RA2
+83:                    
+84:                    // clear interrupt-on-change flag
+85:                    IOCAF2 = 0;
+05E0  1113     BCF IOCAF, 0x2
+86:                }
+87:            }
+05E1  0008     RETURN
+88:            /**
+89:             End of File
+90:            */
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/mcc.c  ---
+1:             /**
+2:               @Generated MPLAB® Code Configurator Source File
+3:             
+4:               @Company:
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name:
+8:                 mcc.c
+9:             
+10:              @Summary:
+11:                This is the mcc.c file generated using MPLAB® Code Configurator
+12:            
+13:              @Description:
+14:                This header file provides implementations for driver APIs for all modules selected in the GUI.
+15:                Generation Information :
+16:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+17:                    Device            :  PIC16F1507
+18:                    Driver Version    :  1.02
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 v1.34
+21:                    MPLAB             :  MPLAB X v2.35 or v3.00
+22:            */
+23:            
+24:            /*
+25:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+26:            
+27:            Microchip licenses to you the right to use, modify, copy and distribute
+28:            Software only when embedded on a Microchip microcontroller or digital signal
+29:            controller that is integrated into your product or third party product
+30:            (pursuant to the sublicense terms in the accompanying license agreement).
+31:            
+32:            You should refer to the license agreement accompanying this Software for
+33:            additional information regarding your rights and obligations.
+34:            
+35:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+36:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+37:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+38:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+39:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+40:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+41:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+42:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+43:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+44:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+45:            */
+46:            
+47:            // Configuration bits: selected in the GUI
+48:            
+49:            // CONFIG1
+50:            #pragma config BOREN = ON    // Brown-out Reset Enable->Brown-out Reset enabled
+51:            #pragma config PWRTE = OFF    // Power-up Timer Enable->PWRT disabled
+52:            #pragma config FOSC = INTOSC    // Oscillator Selection bits->Internal Oscillator, I/O Function on OSC1
+53:            #pragma config MCLRE = ON    // MCLR Pin Function Select->MCLR/VPP pin function is MCLR
+54:            #pragma config CP = OFF    // Flash Program Memory Code Protection->Program memory code protection is disabled
+55:            #pragma config WDTE = OFF    // Watchdog Timer Enable->WDT disabled
+56:            #pragma config CLKOUTEN = OFF    // Clock Out Enable->CLKOUT function is disabled. I/O or oscillator function on the CLKOUT pin
+57:            
+58:            // CONFIG2
+59:            #pragma config WRT = OFF    // Flash Memory Self-Write Protection->Write protection off
+60:            #pragma config LPBOR = OFF    // Low-Power Brown Out Reset->Low-Power BOR is disabled
+61:            #pragma config LVP = OFF    // Low-Voltage Programming Enable->High-voltage on MCLR/VPP must be used for programming
+62:            #pragma config STVREN = ON    // Stack Overflow/Underflow Reset Enable->Stack Overflow or Underflow will cause a Reset
+63:            #pragma config BORV = LO    // Brown-out Reset Voltage Selection->Brown-out Reset Voltage (Vbor), low trip point selected.
+64:            
+65:            #include "mcc.h"
+66:            
+67:            void SYSTEM_Initialize(void)
+68:            {
+69:                OSCILLATOR_Initialize();
+05C2  25EF     CALL 0x5EF
+70:                PIN_MANAGER_Initialize();
+05C3  254C     CALL 0x54C
+71:                FVR_Initialize();
+05C4  25F4     CALL 0x5F4
+72:                TMR2_Initialize();
+05C5  25E2     CALL 0x5E2
+73:                PWM1_Initialize();
+05C6  25CA     CALL 0x5CA
+74:                PWM2_Initialize();
+05C7  25E9     CALL 0x5E9
+75:                ADC_Initialize();
+05C8  25D2     CALL 0x5D2
+76:                TMR0_Initialize();
+05C9  2DB7     GOTO 0x5B7
+77:            }
+78:            
+79:            void OSCILLATOR_Initialize(void)
+80:            {
+81:                // SCS INTOSC; IRCF 500KHz_MF; 
+82:                OSCCON = 0x3A;
+05EF  303A     MOVLW 0x3A
+05F0  0021     MOVLB 0x1
+05F1  0099     MOVWF OSCCON
+83:                // HFIOFR disabled; HFIOFS not0.5percent_acc; LFIOFR disabled; 
+84:                OSCSTAT = 0x00;
+05F2  019A     CLRF OSCSTAT
+85:                // Set the secondary oscillator
+86:                
+87:            }
+05F3  0008     RETURN
+88:            
+89:            /**
+90:             End of File
+91:            */
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/interrupt_manager.c
+1:             /**
+2:               Generated Interrupt Manager Source File
+3:             
+4:               @Company:
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name:
+8:                 interrupt_manager.c
+9:             
+10:              @Summary:
+11:                This is the Interrupt Manager file generated using MPLAB® Code Configurator
+12:            
+13:              @Description:
+14:                This header file provides implementations for global interrupt handling.
+15:                For individual peripheral handlers please see the peripheral driver for
+16:                all modules selected in the GUI.
+17:                Generation Information :
+18:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+19:                    Device            :  PIC16F1507
+20:                    Driver Version    :  1.02
+21:                The generated drivers are tested against the following:
+22:                    Compiler          :  XC8 v1.34
+23:                    MPLAB             :  MPLAB X v2.35 or v3.00
+24:            */
+25:            
+26:            /*
+27:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+28:            
+29:            Microchip licenses to you the right to use, modify, copy and distribute
+30:            Software only when embedded on a Microchip microcontroller or digital signal
+31:            controller that is integrated into your product or third party product
+32:            (pursuant to the sublicense terms in the accompanying license agreement).
+33:            
+34:            You should refer to the license agreement accompanying this Software for
+35:            additional information regarding your rights and obligations.
+36:            
+37:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+38:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+39:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+40:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+41:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+42:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+43:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+44:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+45:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+46:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+47:            */
+48:            
+49:            #include "interrupt_manager.h"
+50:            #include "mcc.h"
+51:            
+52:            bit bInterrupted;
+53:            unsigned long pulses;
+54:            
+55:            void interrupt INTERRUPT_InterruptManager (void)
+0004  3180     MOVLP 0x0
+56:            {
+57:               // interrupt handler
+58:                if(INTCONbits.IOCIE == 1 && INTCONbits.IOCIF == 1)
+0005  198B     BTFSC 0x8B, 0x3
+0006  1C0B     BTFSS 0x8B, 0x0
+0007  280C     GOTO 0xC
+59:                {
+60:                    bInterrupted = true;
+0008  0020     MOVLB 0x0
+0009  14E7     BSF bInterrupted, 0x1
+61:                    TMR0_ISR();
+000A  25F8     CALL 0x5F8
+62:                }
+000B  0009     RETFIE
+63:                else if(INTCONbits.IOCIE == 1 && INTCONbits.IOCIF == 1)
+000C  198B     BTFSC INTCON, 0x3
+000D  1C0B     BTFSS INTCON, 0x0
+000E  0009     RETFIE
+64:                {
+65:                    pulses++;
+000F  3001     MOVLW 0x1
+0010  0020     MOVLB 0x0
+0011  07DF     ADDWF pulses, F
+0012  3000     MOVLW 0x0
+0013  3DE0     ADDWFC 0x60, F
+0014  3DE1     ADDWFC 0x61, F
+0015  3DE2     ADDWFC 0x62, F
+66:                    PIN_MANAGER_IOC();
+0016  25DA     CALL 0x5DA
+67:                            
+68:                    // clear global interrupt-on-change flag
+69:                    INTCONbits.IOCIF = 0;
+0017  100B     BCF INTCON, 0x0
+70:                }
+71:                else
+72:                {
+73:                    //Unhandled Interrupt
+74:                }
+75:            }
+0018  0009     RETFIE
+76:            /**
+77:             End of File
+78:            */
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/fvr.c  ---
+1:             /**
+2:               FVR Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 fvr.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the FVR driver using MPLAB® Code Configurator
+12:            
+13:              @Description
+14:                This source file provides APIs for FVR.
+15:                Generation Information :
+16:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+17:                    Device            :  PIC16F1507
+18:                    Driver Version    :  2.00
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 v1.34
+21:                    MPLAB             :  MPLAB X v2.35 or v3.00
+22:            */
+23:            
+24:            /*
+25:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+26:            
+27:            Microchip licenses to you the right to use, modify, copy and distribute
+28:            Software only when embedded on a Microchip microcontroller or digital signal
+29:            controller that is integrated into your product or third party product
+30:            (pursuant to the sublicense terms in the accompanying license agreement).
+31:            
+32:            You should refer to the license agreement accompanying this Software for
+33:            additional information regarding your rights and obligations.
+34:            
+35:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+36:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+37:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+38:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+39:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+40:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+41:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+42:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+43:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+44:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+45:            */
+46:            
+47:            /**
+48:              Section: Included Files
+49:            */
+50:            
+51:            #include <xc.h>
+52:            #include "fvr.h"
+53:            
+54:            /**
+55:              Section: FVR APIs
+56:            */
+57:            
+58:            void FVR_Initialize(void)
+59:            {
+60:                // TSRNG Lo_range; TSEN enabled; FVREN enabled; FVRRDY disabled; ADFVR 1x; 
+61:                FVRCON = 0xA1;
+05F4  30A1     MOVLW 0xA1
+05F5  0022     MOVLB 0x2
+05F6  0097     MOVWF FVRCON
+62:            }
+05F7  0008     RETURN
+63:            
+64:            bool FVR_IsOutputReady(void)
+65:            {
+66:                return (FVRCONbits.FVRRDY);
+67:            }
+68:            /**
+69:             End of File
+70:            */
+71:            
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/mcc_generated_files/adc.c  ---
+1:             /**
+2:               ADC Generated Driver File
+3:             
+4:               @Company
+5:                 Microchip Technology Inc.
+6:             
+7:               @File Name
+8:                 adc.c
+9:             
+10:              @Summary
+11:                This is the generated driver implementation file for the ADC driver using MPLAB® Code Configurator
+12:            
+13:              @Description
+14:                This source file provides implementations for driver APIs for ADC.
+15:                Generation Information :
+16:                    Product Revision  :  MPLAB® Code Configurator - v2.25
+17:                    Device            :  PIC16F1507
+18:                    Driver Version    :  2.00
+19:                The generated drivers are tested against the following:
+20:                    Compiler          :  XC8 v1.34
+21:                    MPLAB             :  MPLAB X v2.35 or v3.00
+22:            */
+23:            
+24:            /*
+25:            Copyright (c) 2013 - 2015 released Microchip Technology Inc.  All rights reserved.
+26:            
+27:            Microchip licenses to you the right to use, modify, copy and distribute
+28:            Software only when embedded on a Microchip microcontroller or digital signal
+29:            controller that is integrated into your product or third party product
+30:            (pursuant to the sublicense terms in the accompanying license agreement).
+31:            
+32:            You should refer to the license agreement accompanying this Software for
+33:            additional information regarding your rights and obligations.
+34:            
+35:            SOFTWARE AND DOCUMENTATION ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
+36:            EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION, ANY WARRANTY OF
+37:            MERCHANTABILITY, TITLE, NON-INFRINGEMENT AND FITNESS FOR A PARTICULAR PURPOSE.
+38:            IN NO EVENT SHALL MICROCHIP OR ITS LICENSORS BE LIABLE OR OBLIGATED UNDER
+39:            CONTRACT, NEGLIGENCE, STRICT LIABILITY, CONTRIBUTION, BREACH OF WARRANTY, OR
+40:            OTHER LEGAL EQUITABLE THEORY ANY DIRECT OR INDIRECT DAMAGES OR EXPENSES
+41:            INCLUDING BUT NOT LIMITED TO ANY INCIDENTAL, SPECIAL, INDIRECT, PUNITIVE OR
+42:            CONSEQUENTIAL DAMAGES, LOST PROFITS OR LOST DATA, COST OF PROCUREMENT OF
+43:            SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
+44:            (INCLUDING BUT NOT LIMITED TO ANY DEFENSE THEREOF), OR OTHER SIMILAR COSTS.
+45:            */
+46:            
+47:            /**
+48:              Section: Included Files
+49:            */
+50:            
+51:            #include <xc.h>
+52:            #include "adc.h"
+53:            #include "mcc.h"
+54:            
+55:            /**
+56:              Section: Macro Declarations
+57:            */
+58:            
+59:            #define ACQ_US_DELAY 5
+60:            
+61:            /**
+62:              Section: ADC Module APIs
+63:            */
+64:            
+65:            void ADC_Initialize(void)
+66:            {
+67:                // set the ADC to the options selected in the User Interface
+68:                
+69:                // GO_nDONE stop; ADON enabled; CHS AN0; 
+70:                ADCON0 = 0x01;
+05D2  3001     MOVLW 0x1
+05D3  0021     MOVLB 0x1
+05D4  009D     MOVWF ADCON0
+71:                
+72:                // ADPREF VDD; ADFM left; ADCS FOSC/2; 
+73:                ADCON1 = 0x00;
+05D5  019E     CLRF ADCON1
+74:                
+75:                // TRIGSEL no_auto_trigger; 
+76:                ADCON2 = 0x00;
+05D6  019F     CLRF ADCON2
+77:                
+78:                // ADRESL 0x0; 
+79:                ADRESL = 0x00;
+05D7  019B     CLRF ADRES
+80:                
+81:                // ADRESH 0x0; 
+82:                ADRESH = 0x00;
+05D8  019C     CLRF ADRESH
+83:                
+84:            }
+05D9  0008     RETURN
+85:            
+86:            void ADC_StartConversion(adc_channel_t channel)
+87:            {
+88:                // select the A/D channel
+89:                ADCON0bits.CHS = channel;
+90:            
+91:                // Turn on the ADC module
+92:                ADCON0bits.ADON = 1;
+93:            
+94:                // Acquisition time delay
+95:                __delay_us(ACQ_US_DELAY);
+96:                
+97:                // Start the conversion
+98:                ADCON0bits.GO_nDONE = 1;
+99:            }
+100:           
+101:           bool ADC_IsConversionDone()
+102:           {
+103:               // Start the conversion
+104:               return (!ADCON0bits.GO_nDONE);
+105:           }
+106:           
+107:           adc_result_t ADC_GetConversionResult(void)
+108:           {
+109:               // Conversion finished, return the result
+110:               return ((ADRESH << 8) + ADRESL);
+111:           }
+112:           
+113:           adc_result_t ADC_GetConversion(adc_channel_t channel)
+0571  00F3     MOVWF 0xF3
+114:           {
+115:               // Select the A/D channel
+116:               ADCON0bits.CHS = channel;
+0572  00F2     MOVWF 0xF2
+0573  0DF2     RLF 0xF2, F
+0574  0DF2     RLF 0xF2, F
+0575  0021     MOVLB 0x1
+0576  081D     MOVF ADCON0, W
+0577  0672     XORWF 0xF2, W
+0578  3983     ANDLW 0x83
+0579  0672     XORWF 0xF2, W
+057A  009D     MOVWF ADCON0
+117:           
+118:               // Turn on the ADC module
+119:               ADCON0bits.ADON = 1;
+057B  141D     BSF ADCON0, 0x0
+120:           
+121:               // Acquisition time delay
+122:               __delay_us(ACQ_US_DELAY);
+123:           
+124:               // Start the conversion
+125:               ADCON0bits.GO_nDONE = 1;
+057C  0021     MOVLB 0x1
+057D  149D     BSF ADCON0, 0x1
+126:           
+127:               // Wait for the conversion to finish
+128:               while (ADCON0bits.GO_nDONE)
+129:               {
+130:               }
+057E  189D     BTFSC ADCON0, 0x1
+057F  2D7E     GOTO 0x57E
+131:               
+132:               // Conversion finished, return the result
+133:               return ((ADRESH << 8) + ADRESL);
+0580  081C     MOVF ADRESH, W
+0581  00F1     MOVWF 0xF1
+0582  01F0     CLRF 0xF0
+0583  081B     MOVF ADRES, W
+0584  07F0     ADDWF 0xF0, F
+0585  1803     BTFSC 0x83, 0x0
+0586  0AF1     INCF 0xF1, F
+134:           }
+0587  0008     RETURN
+135:           /**
+136:            End of File
+137:           */
+---  C:/Users/anatolii.terziev.GLOBAL/Desktop/Zigbee11/MplabWork/V5_1_0.X1/main_0.c  --------------------
+1:             /* 
+2:              * File:   main_0.c
+3:              * Author: anatoliy.terziev
+4:              *
+5:              * Created on Monday, 2015, May 4, 23:37
+6:              */
+7:             
+8:             #include <pic16f1507.h>
+9:             #include <xc.h>
+10:            //#include <htc.h>
+11:            #include <stdio.h>
+12:            #include <stdlib.h>
+13:            //#include <ctype.h>  // Are you processing ASCII chars?
+14:            #include <float.h>  // This should not be needed unless you are manually controlling floats/doubles
+15:            #include <math.h>
+16:            //#include "pconfig.h"
+17:            //#include <plib/adc.h>
+18:            #include "mcc_generated_files/mcc.h"
+19:            //
+20:            //
+21:            //
+22:            //
+23:            //CONSTANTS
+24:            #define VREF                        3.3             //Reference voltage for ADC Used for calculation of exact value
+25:            #define PWM_VALUE                   50              //in % -> value for PWM sor solenoid supply
+26:            #define VOLTAGE_FOR_CHARGING        15.1            // over this voltage the LEDs will be not flashing, it means that is the day time!
+27:            #define ENABLE_START_BATT_VOLTAGE   10.1            //If the voltage is less than this value, starting of sprinkler is not possible
+28:            #define TIME_FOR_HIGH_VOLTAGE       10              //*0.1sec ->time for supply solenoid with 100% of battery voltage
+29:            #define IS_TIME_FOR_SUPPYING_SHOCK  100             //*0.1sec ->time between reducing the solenoid voltage and supllying the shock sensor
+30:            #define IS_TIME_FOR_CHECK_SHOCK     600             //*0.1sec ->how many time after supplying the shock it has to recieve sprinkling condition
+31:            #define IS_TIME_FOR_STOP_VALVE      9000            //*0.1sec ->how many time after start the sprinkler will be stopped forcedly
+32:            #define SHOCK_ERROR_CRITERIA        3               // how many times the number of pulses when sprinkler i worling are more than when sprinkler is stopped
+33:            #define TIME_FOR_DEMAGNETISING      10              //*0.1sec ->time for recieving signal for de magnetising from RID sensor
+34:            #define TIME_FOR_STOPPING           1200            //*0.1sec ->after this time the shock have to show that the sprinkler is not sprinkling
+35:            #define LEDS_ON_TIME                7               //*0.1sec ->time for lighting
+36:            #define LEDS_OFF_TIME               14              //*0.1sec ->time for not lighting
+37:            #define LEDS_LIGHTING_TIME          540000L         //*0.1sec ->it is not good idea the leds to work over 12 hours, becouse of accumulators
+38:            #define RESET_PERIOD                600000L         //*0.1 sec ->this is a time to send reset ZIGBEE signal periodically. Aprx. 12 hours
+39:            #define RESET_DURATION              15              //*0.1 sec ->this is a duration or RESET ZIGBEE pulse
+40:            #define I_AM_ALIVE_ON_TIME          3               //*0.1 sec -> how many secundes I am alive LED will be light
+41:            #define I_AM_ALIVE_OFF_TIME         7               //*0.1 sec -> how many secundes I am alive LED will be dark
+42:            #define I_AM_ALIVE_START_TIME       30              //*0.1 sec -> how many secundes I am alive LED will be light after RESET
+43:            //
+44:            /*
+45:             * 
+46:             */
+47:            
+48:            
+49:            //GLOBAL VARIABLES:
+50:            unsigned long ulgCyclesForReset=0;  // this variable counts every 0.1 sec
+51:            bit bInterrupted;                   //we use it to exit from sleep mode
+52:            unsigned long pulses;               //we use it to count peripheral interrupts during Shock registration
+53:            bit bDoNotSleep=0;                  //this flag disables sleep mode during PWM is active. PWM can not work in sleep mode.
+54:            float ReadainVBatt();               // this function reads voltage of accumulator battery
+55:            float ReadPHVVoltage();             // this function reads voltage of solar panel
+56:            
+57:            
+58:            int main(void) {
+59:            
+60:            //local variable declarations:
+61:            static bit bStopIsNotRecieved=0 ;           //this flag shows that the START VALVE signal is active for more than 15 minutes
+62:            int timeForHighVoltageOnSolenoid = 0;       //here is stored how many cycles are passed from start solenoid command to time for reduce voltage
+0025  01C9     CLRF 0xC9
+0026  01CA     CLRF 0xCA
+63:            int timeToSupplyShock=0;                    //here is stored how many cycles are passed from reducing the solenoid voltage to energizing the shock
+0027  01BD     CLRF 0xBD
+0028  01BE     CLRF 0xBE
+64:            int timeToCheckingShock=0;                  //here is stored how many cycles are passed from energizing the shock to start checking it
+0029  01BF     CLRF 0xBF
+002A  01C0     CLRF 0xC0
+65:            int timeForSprinkling =0;                   //here is stored how many cycles are passed from beginning or sprinkling. After 15 min the sprinkler has to stop
+002B  01CB     CLRF 0xCB
+002C  01CC     CLRF 0xCC
+66:            int timeForDemagnetising=0;                 //how many cycles are passed from de energizing the valve to receiving a signal from RID sensor
+002D  01C1     CLRF 0xC1
+002E  01C2     CLRF 0xC2
+67:            int timeForStopping=0;                      // how many cycles after deenergizing the valve, the shock shows that the sprinkler is stopped
+002F  01CD     CLRF 0xCD
+0030  01CE     CLRF 0xCE
+68:            long lngPulsesWorking;                      //counter for pulses from shock sensor during sprinkler is working
+69:            long lngPulsesNotWorking;                   //counter for pulses from shock during sprinkler is not working
+70:            int intLedsOnTime=0;                        //counter for LEDs flashing. Counts time for light
+0031  01C3     CLRF 0xC3
+0032  01C4     CLRF 0xC4
+71:            int intLedsOffTime=0;                       //counter for LEDs flashing. Counts time for dark
+0033  01C5     CLRF 0xC5
+0034  01C6     CLRF 0xC6
+72:            float flainVBatt;                           //shows battery voltage
+73:            unsigned char ucIAmAliveON=0;               //counts the cycles when "I am alive" led is lighting
+0035  01C7     CLRF 0xC7
+74:            unsigned char ucIAmAliveOFF=0;              //counts the cycles when "I am alive" led is NOT lighting
+0036  01C8     CLRF 0xC8
+75:            int k=1;
+0037  01CF     CLRF 0xCF
+0038  0ACF     INCF 0xCF, F
+0039  01D0     CLRF 0xD0
+76:            unsigned long ulgCyclesForLEDs=0; // this variable counts every 0.1 sec
+003A  01B9     CLRF 0xB9
+003B  01BA     CLRF 0xBA
+003C  01BB     CLRF 0xBB
+003D  01BC     CLRF 0xBC
+77:            unsigned char ucValveState=0 ;
+003E  01DB     CLRF 0xDB
+78:            //initialize i/o
+79:              SYSTEM_Initialize();
+003F  25C2     CALL 0x5C2
+80:              INTERRUPT_PeripheralInterruptEnable();
+0040  170B     BSF 0x8B, 0x6
+81:              INTERRUPT_GlobalInterruptEnable();
+0041  178B     BSF 0x8B, 0x7
+82:            
+83:            
+84:            
+85:               outIAmAlive_SetHigh();
+0042  0022     MOVLB 0x2
+0043  178E     BSF LATC, 0x7
+86:               for(k=0;k< I_AM_ALIVE_START_TIME ;k++) SLEEP();
+0044  0020     MOVLB 0x0
+0045  01CF     CLRF k
+0046  01D0     CLRF 0x50
+0047  0850     MOVF 0x50, W
+0048  3A80     XORLW 0x80
+0049  00B8     MOVWF 0x38
+004A  3080     MOVLW 0x80
+004B  0238     SUBWF 0x38, W
+004C  1D03     BTFSS STATUS, 0x2
+004D  2850     GOTO 0x50
+004E  301E     MOVLW 0x1E
+004F  024F     SUBWF k, W
+0050  1803     BTFSC STATUS, 0x0
+0051  2858     GOTO 0x58
+0052  0063     SLEEP
+0053  0020     MOVLB 0x0
+0054  0ACF     INCF k, F
+0055  1903     BTFSC STATUS, 0x2
+0056  0AD0     INCF 0x50, F
+0057  2847     GOTO 0x47
+87:              outIAmAlive_SetLow();
+0058  0022     MOVLB 0x2
+0059  138E     BCF LATC, 0x7
+88:            
+89:                
+90:                while (1)
+91:                {
+92:                /* ****************************manage solenoid valve*******************************************************************
+93:                 *  1. if inpStartSolenoid=1 -> Start valve at 100% of supply,  if battery voltage is over 10Volts.
+94:                 *  2. Check magnetizing and battery voltage. Send signal to ZIGBEE if there is something wrong.
+95:                 *  3. Decrease supply to 50%
+96:                 *  4. Check battery voltage during 10S and supply SHOCK
+97:                 *  5. After one minute check the SHOCK. It has to show that sprinkler is working
+98:                 *  6. Check SHOCK, battery voltage, time and inpStartSolenoid=1 for 15 minutes
+99:                 *  7. Stop the valve when the ZIGBEE sends 0 and check magnetizing again
+100:                *  8. If the ZIGBEE don't send a STOP signal after 15 minutes, stop the valve, reset ZIGBEE and send signal to ZIGBEE
+101:                *  9. Wait 2 minutes and check SHOCK. If after 2 minutes sprinkler is still sprinkling, send signal to ZIGBEE
+102:                **********************************************************************************************************************/
+103:               //
+104:                  
+105:                   ulgCyclesForReset++ ;
+005A  3001     MOVLW 0x1
+005B  0020     MOVLB 0x0
+005C  07E3     ADDWF ulgCyclesForReset, F
+005D  3000     MOVLW 0x0
+005E  3DE4     ADDWFC 0x64, F
+005F  3DE5     ADDWFC 0x65, F
+0060  3DE6     ADDWFC 0x66, F
+106:                   //code for sending RESET
+107:                   if (ulgCyclesForReset > RESET_PERIOD)
+0061  0866     MOVF 0x66, W
+0062  1D03     BTFSS STATUS, 0x2
+0063  286C     GOTO 0x6C
+0064  30C1     MOVLW 0xC1
+0065  0263     SUBWF ulgCyclesForReset, W
+0066  3027     MOVLW 0x27
+0067  3B64     SUBWFB 0x64, W
+0068  3009     MOVLW 0x9
+0069  3B65     SUBWFB 0x65, W
+006A  1C03     BTFSS STATUS, 0x0
+006B  2A1D     GOTO 0x21D
+108:                   {//RESET Zigbee:
+109:                       outResetZigbee_SetHigh();                               //  Set RESET output to HIGH
+006C  0022     MOVLB 0x2
+006D  160E     BSF LATC, 0x4
+110:                       for(unsigned char k=0; k< RESET_DURATION; k++) SLEEP(); //wait RESET_DURATION cycles *0.1s
+006E  0020     MOVLB 0x0
+006F  01D1     CLRF k
+0070  300F     MOVLW 0xF
+0071  0251     SUBWF k, W
+0072  1803     BTFSC STATUS, 0x0
+0073  2878     GOTO 0x78
+0074  0063     SLEEP
+0075  0020     MOVLB 0x0
+0076  0AD1     INCF k, F
+0077  2870     GOTO 0x70
+111:                       outResetZigbee_SetLow();                                // clear RESET output
+0078  0022     MOVLB 0x2
+0079  120E     BCF LATC, 0x4
+112:                       ulgCyclesForReset=0;                                    // clear reset counter
+007A  22C7     CALL 0x2C7
+007B  2A1D     GOTO 0x21D
+113:                   }
+114:           
+115:                   switch (ucValveState) //condition recogniser
+021D  085B     MOVF 0x15B, W
+021E  0084     MOVWF 0x104
+021F  300B     MOVLW 0xB
+0220  0204     SUBWF 0x104, W
+0221  1803     BTFSC 0x103, 0x0
+0222  288B     GOTO 0x8B
+0223  3185     MOVLP 0x5
+0224  30AC     MOVLW 0xAC
+0225  0704     ADDWF 0x104, W
+0226  0082     MOVWF 0x102
+05AC  287C     GOTO 0x7C
+116:                   {
+117:                       // /////////////////////////////////////////////////////////////// //
+118:                           case 0: //Wait for START SOLENOID signal
+119:                           if (inpStartSolenoid_GetValue())
+007C  1E0D     BTFSS LATB, 0x4
+007D  2A27     GOTO 0x227
+120:                              {
+121:                               ucValveState=1 ; //go to step 1
+007E  01DB     CLRF 0x15B
+007F  0ADB     INCF 0x15B, F
+0080  2A27     GOTO 0x227
+122:                              }
+123:                           break;
+124:           
+125:           
+126:           
+127:                       // /////////////////////////////////////////////////////////////// //
+128:                           case 1: //Start valve at 100% of supply.If inpStartSolenoid=1 -> Start valve at 100% of supply,  if battery voltage is over 10Volts.
+129:                           {
+130:                           outStopNotRecieved_SetLow(); //reset output for error in case of missing of stop signal
+0081  0022     MOVLB 0x2
+0082  138D     BCF LATB, 0x7
+131:                           flainVBatt = ReadainVBatt();
+0083  24E4     CALL 0x4E4
+0084  22C0     CALL 0x2C0
+132:           
+133:                           if  (flainVBatt<ENABLE_START_BATT_VOLTAGE)
+0085  2295     CALL 0x295
+0086  2520     CALL 0x520
+0087  1803     BTFSC 0x103, 0x0
+0088  288D     GOTO 0x8D
+134:                              {
+135:                              outBatteryErr_SetHigh();   //Voltage is not enough to energize the valve
+0089  0022     MOVLB 0x2
+008A  170D     BSF LATB, 0x6
+136:                              ucValveState=10 ;
+008B  300A     MOVLW 0xA
+008C  2988     GOTO 0x188
+137:                              }
+138:                           else //Start of sprinkling
+139:                              {
+140:                               outBatteryErr_SetLow();
+008D  0022     MOVLB 0x2
+008E  130D     BCF LATB, 0x6
+141:                               timeForHighVoltageOnSolenoid = 0;
+142:                               PWM1_SetHigh();   // Supply solenoid with full battery voltage
+008F  168E     BSF LATC, 0x5
+143:                               ucValveState=2 ;
+0090  3002     MOVLW 0x2
+0091  0020     MOVLB 0x0
+0092  00DB     MOVWF ucValveState
+144:                               timeForHighVoltageOnSolenoid=0;
+0093  01C9     CLRF timeForHighVoltageOnSolenoid
+0094  01CA     CLRF 0x4A
+0095  2A27     GOTO 0x227
+145:                              }
+146:                           }
+147:                           break;
+148:           
+149:           
+150:                       // /////////////////////////////////////////////////////////////// //
+151:                           case 2: //Check magnetizing and battery voltage. Send signal to ZIGBEE if there is something wrong.
+152:                           {
+153:                               timeForHighVoltageOnSolenoid++; //counts the cycles when solenoid is 100% energized
+0096  0AC9     INCF timeForHighVoltageOnSolenoid, F
+0097  1903     BTFSC STATUS, 0x2
+0098  0ACA     INCF 0x4A, F
+154:                               if (timeForHighVoltageOnSolenoid > TIME_FOR_HIGH_VOLTAGE) //is time for reducing the voltage?
+0099  084A     MOVF 0x4A, W
+009A  3A80     XORLW 0x80
+009B  00B8     MOVWF 0x38
+009C  3080     MOVLW 0x80
+009D  0238     SUBWF 0x38, W
+009E  1D03     BTFSS STATUS, 0x2
+009F  28A2     GOTO 0xA2
+00A0  300B     MOVLW 0xB
+00A1  0249     SUBWF timeForHighVoltageOnSolenoid, W
+00A2  1C03     BTFSS STATUS, 0x0
+00A3  2A27     GOTO 0x227
+155:                               {
+156:                                   //Show sensor condition:
+157:                                   if (! inpValveMonitoringSensor_GetValue()) outValveState_SetHigh();
+00A4  0020     MOVLB 0x0
+00A5  1A0C     BTFSC PORTA, 0x4
+00A6  28AA     GOTO 0xAA
+00A7  0022     MOVLB 0x2
+00A8  168C     BSF LATA, 0x5
+00A9  28AC     GOTO 0xAC
+158:                                   else outValveState_SetLow();
+00AA  0022     MOVLB 0x2
+00AB  128C     BCF LATA, 0x5
+159:           
+160:                                   //read Battery Voltage:
+161:                                   flainVBatt = ReadainVBatt();
+00AC  24E4     CALL 0x4E4
+00AD  22C0     CALL 0x2C0
+00AE  2295     CALL 0x295
+162:                                   if  (flainVBatt < ENABLE_START_BATT_VOLTAGE) //check battery voltage value
+00AF  2520     CALL 0x520
+00B0  1803     BTFSC 0x103, 0x0
+00B1  28B7     GOTO 0xB7
+163:                                   {//Voltage is not enough to energize the valve
+164:                                   outBatteryErr_SetHigh();            // send signal to Zigbee
+00B2  0022     MOVLB 0x2
+00B3  170D     BSF LATB, 0x6
+165:                                   PWM1_SetLow();                      // DeEnergise the solenoid coil
+00B4  0022     MOVLB 0x2
+00B5  128E     BCF LATC, 0x5
+00B6  288B     GOTO 0x8B
+166:                                   ucValveState=10 ;                   // end of start valve cycle
+167:                                   }
+168:                                   else
+169:                                   {
+170:                                   ucValveState=3 ;   // continue to next step
+00B7  3003     MOVLW 0x3
+00B8  2989     GOTO 0x189
+171:                                   }
+172:                               }
+173:                           }
+174:                           break;
+175:           
+176:           
+177:                       // /////////////////////////////////////////////////////////////// //
+178:                           case 3: // Decrease power supply to 50% of nominal
+179:                           {
+180:                             bDoNotSleep = 1; //PWM will be active! Sleep is not possible.
+00BA  1467     BSF 0x167, 0x0
+181:                                   /*code for PWM have to be here !!!*/
+182:                             PWM1_LoadDutyValue(PWM_VALUE); // reduce the solenoid power
+00B9  3032     MOVLW 0x32
+00BB  00F0     MOVWF 0x170
+00BC  01F1     CLRF 0x171
+00BD  2588     CALL 0x588
+183:                             ucValveState=4 ;  // continue to next step
+00BE  3004     MOVLW 0x4
+00BF  2988     GOTO 0x188
+184:                           }              
+185:                          break;
+186:           
+187:           
+188:           
+189:                       // /////////////////////////////////////////////////////////////// //
+190:                           case 4: //continue checking the battery voltage during next 10S  and supply SHOCK
+191:                           {
+192:                               timeToSupplyShock++;    //counter for steps
+00C0  0ABD     INCF 0x13D, F
+00C1  1903     BTFSC 0x103, 0x2
+00C2  0ABE     INCF 0x13E, F
+193:                               flainVBatt = ReadainVBatt();
+00C3  24E4     CALL 0x4E4
+00C4  22C0     CALL 0x2C0
+00C5  2295     CALL 0x295
+194:                               if  (flainVBatt<ENABLE_START_BATT_VOLTAGE) //is the battery good?
+00C6  2520     CALL 0x520
+00C7  1C03     BTFSS 0x103, 0x0
+00C8  28B2     GOTO 0xB2
+195:                                   {
+196:                                   outBatteryErr_SetHigh(); //Voltage is not enough to energize the valve
+197:                                   /*stop PWM have to be here*/
+198:                                   PWM1_SetLow();         // DeEnergise
+199:                                   ucValveState=10 ;      //end of start valve cycle
+200:                                   }
+201:                               else if (timeToSupplyShock>IS_TIME_FOR_SUPPYING_SHOCK) //is the time?
+00C9  083E     MOVF 0x13E, W
+00CA  3A80     XORLW 0x80
+00CB  00B8     MOVWF 0x138
+00CC  3080     MOVLW 0x80
+00CD  0238     SUBWF 0x138, W
+00CE  1D03     BTFSS 0x103, 0x2
+00CF  28D2     GOTO 0xD2
+00D0  3065     MOVLW 0x65
+00D1  023D     SUBWF 0x13D, W
+00D2  1C03     BTFSS 0x103, 0x0
+00D3  2A27     GOTO 0x227
+202:                                   {
+203:                                   outShockSupply_SetHigh();   //supplying the shock sensor
+00D4  0022     MOVLB 0x2
+00D5  150E     BSF LATC, 0x2
+204:                                   ucValveState=5;             //go to next step
+00D6  3005     MOVLW 0x5
+00D7  2988     GOTO 0x188
+205:                                   }
+206:                           }
+207:                           break;
+208:           
+209:           
+210:           
+211:                       // /////////////////////////////////////////////////////////////// //
+212:                           case 5: //After one minute check the SHOCK. It has to show that sprinkler is working
+213:                           timeToCheckingShock++; //counter for steps
+00D8  0ABF     INCF 0x13F, F
+00D9  1903     BTFSC 0x103, 0x2
+00DA  0AC0     INCF 0x140, F
+214:                           if  (!inpStartSolenoid_GetValue()) //is STOP command received ?
+00DB  1A0D     BTFSC LATB, 0x4
+00DC  28E6     GOTO 0xE6
+215:                           {// Stop command is received
+216:                               flainVBatt = ReadainVBatt();
+00DD  24E4     CALL 0x4E4
+00DE  22C0     CALL 0x2C0
+217:                               if (flainVBatt >ENABLE_START_BATT_VOLTAGE) outBatteryErr_SetLow(); // if battery is good send signal to Zigbee
+00DF  22B3     CALL 0x2B3
+00E0  2520     CALL 0x520
+00E1  1803     BTFSC 0x103, 0x0
+00E2  28B4     GOTO 0xB4
+00E3  0022     MOVLB 0x2
+00E4  130D     BCF LATB, 0x6
+00E5  28B4     GOTO 0xB4
+218:                                   PWM1_SetLow();         // Deenergize solenoid
+219:                                   ucValveState=10 ;      //end of start valve cycle
+220:                           }
+221:                           else if (flainVBatt<ENABLE_START_BATT_VOLTAGE) // stop command is not received. Is battery good?
+00E6  2295     CALL 0x295
+00E7  2520     CALL 0x520
+00E8  1C03     BTFSS 0x103, 0x0
+00E9  28B2     GOTO 0xB2
+222:                                   {//battery is not good
+223:                                   outBatteryErr_SetHigh();          //Voltage is not enough to energize the valve
+224:                                   /*stop PWM have to be here*/
+225:                                   PWM1_SetLow();         // DeEnergise
+226:                                   ucValveState=10 ;      //end of start valve cycle
+227:                                   }
+228:                           else if (timeToCheckingShock>IS_TIME_FOR_CHECK_SHOCK)//battery is good, stop not received, is time to check Shock Sensor?
+00EA  0840     MOVF 0x140, W
+00EB  3A80     XORLW 0x80
+00EC  00B8     MOVWF 0x138
+00ED  3082     MOVLW 0x82
+00EE  0238     SUBWF 0x138, W
+00EF  1D03     BTFSS 0x103, 0x2
+00F0  28F3     GOTO 0xF3
+00F1  3059     MOVLW 0x59
+00F2  023F     SUBWF 0x13F, W
+00F3  1C03     BTFSS 0x103, 0x0
+00F4  2A27     GOTO 0x227
+229:                                   {
+230:                                   outBatteryErr_SetLow(); //send signal to Zigbee about good condition of battery
+00F5  0022     MOVLB 0x2
+00F6  130D     BCF LATB, 0x6
+231:                                   /*code for checking the shock sensor have to be here*/
+232:                                   outShockSupply_SetHigh();   //Energizing the shock
+00F7  150E     BSF LATC, 0x2
+233:                                   pulses=0;                   //reset Shock counter
+00F8  0020     MOVLB 0x0
+00FA  22D2     CALL 0x2D2
+234:                                   ucValveState=6;             //go to next step
+00F9  3006     MOVLW 0x6
+00FB  2989     GOTO 0x189
+235:                                   }
+236:                           break;
+237:           
+238:           
+239:                       // /////////////////////////////////////////////////////////////// //
+240:                           case 6: //Check SHOCK, battery voltage, time and inpStartSolenoid=1 for 15 minutes
+241:                                timeForSprinkling++;
+00FC  0ACB     INCF timeForSprinkling, F
+00FD  1903     BTFSC STATUS, 0x2
+00FE  0ACC     INCF 0x4C, F
+242:           
+243:                           if  (!inpStartSolenoid_GetValue()) //STOP command is received
+00FF  1A0D     BTFSC PORTB, 0x4
+0100  290C     GOTO 0x10C
+0101  22B3     CALL 0x2B3
+244:                           {//we received STOP command
+245:                                   if (flainVBatt>ENABLE_START_BATT_VOLTAGE) outBatteryErr_SetLow(); //clear error output
+0102  2520     CALL 0x520
+0103  1803     BTFSC STATUS, 0x0
+0104  2907     GOTO 0x107
+0105  0022     MOVLB 0x2
+0106  130D     BCF LATB, 0x6
+246:                                   PWM1_SetLow();            // Deenergize solenoid
+0107  0022     MOVLB 0x2
+0108  128E     BCF LATC, 0x5
+247:                                   outShockSupply_SetLow();  // Deenergize the Shock sensor
+0109  110E     BCF LATC, 0x2
+248:                                   ucValveState=7 ;          //end of start valve cycle
+010A  3007     MOVLW 0x7
+010B  2988     GOTO 0x188
+249:                           }
+250:                           else if (flainVBatt < ENABLE_START_BATT_VOLTAGE)// continue sprinkling, is battery good?
+010C  2295     CALL 0x295
+010D  2520     CALL 0x520
+010E  1C03     BTFSS 0x103, 0x0
+010F  28B2     GOTO 0xB2
+251:                                   {//battery is not good:
+252:                                   outBatteryErr_SetHigh(); //send to Zigbee "Voltage is not enough to energize the valve"
+253:                                   PWM1_SetLow();           // Deenergize valve
+254:                                   /*stop PWM have to be here*/
+255:                                   ucValveState=10 ;      //end of start valve cycle
+256:                                   }
+257:                           else if (timeForSprinkling>IS_TIME_FOR_STOP_VALVE) //the sprinkler have to be stopped forcedly
+0110  084C     MOVF 0x14C, W
+0111  3A80     XORLW 0x80
+0112  00B8     MOVWF 0x138
+0113  30A3     MOVLW 0xA3
+0114  0238     SUBWF 0x138, W
+0115  1D03     BTFSS 0x103, 0x2
+0116  2919     GOTO 0x119
+0117  3029     MOVLW 0x29
+0118  024B     SUBWF 0x14B, W
+0119  1C03     BTFSS 0x103, 0x0
+011A  291F     GOTO 0x11F
+258:                                   {
+259:                                   /*code for checking the such sensor have to be here*/
+260:                                  PWM1_SetLow();   // Deenergize solenoid
+011B  0022     MOVLB 0x2
+011C  128E     BCF LATC, 0x5
+261:           
+262:                                   /*stop PWM have to be here*/
+263:           
+264:                                   outStopNotRecieved_SetHigh();   //go to next step
+011D  178D     BSF LATB, 0x7
+011E  290A     GOTO 0x10A
+265:                                   bStopIsNotRecieved=1;   // STOP VALVE signal is not send within 15 minutes
+266:                                   ucValveState=7;         //go to next step
+267:                                   }
+268:                           else // we have START signal, battery is good and time for stop is not come
+269:                           {
+270:                               /* code for checking Shock have to be here */
+271:                               if (timeForSprinkling < IS_TIME_FOR_CHECK_SHOCK)
+011F  0020     MOVLB 0x0
+0120  084C     MOVF 0x4C, W
+0121  3A80     XORLW 0x80
+0122  00B8     MOVWF 0x38
+0123  3082     MOVLW 0x82
+0124  0238     SUBWF 0x38, W
+0125  1D03     BTFSS STATUS, 0x2
+0126  2929     GOTO 0x129
+0127  3058     MOVLW 0x58
+0128  024B     SUBWF timeForSprinkling, W
+0129  1803     BTFSC STATUS, 0x0
+012A  292D     GOTO 0x12D
+272:                               {
+273:                                // !!! Enable interrupt from shock
+274:                                   NOP();
+012B  0000     NOP
+275:                               }
+012C  2A27     GOTO 0x227
+276:                               else
+277:                               {
+278:                                   lngPulsesWorking=pulses;
+012D  0020     MOVLB 0x0
+012E  0862     MOVF 0x62, W
+012F  00D6     MOVWF 0x56
+0130  0861     MOVF 0x61, W
+0131  00D5     MOVWF 0x55
+0132  0860     MOVF 0x60, W
+0133  00D4     MOVWF 0x54
+0134  085F     MOVF pulses, W
+0135  00D3     MOVWF lngPulsesWorking
+0136  22CD     CALL 0x2CD
+279:                                   if ((lngPulsesNotWorking==0) && (lngPulsesWorking>SHOCK_ERROR_CRITERIA)) outShockErr_SetHigh();
+0137  1903     BTFSC STATUS, 0x2
+0138  1BD6     BTFSC 0x56, 0x7
+0139  2949     GOTO 0x149
+013A  0856     MOVF 0x56, W
+013B  1D03     BTFSS STATUS, 0x2
+013C  2947     GOTO 0x147
+013D  0855     MOVF 0x55, W
+013E  1D03     BTFSS STATUS, 0x2
+013F  2947     GOTO 0x147
+0140  0854     MOVF 0x54, W
+0141  1D03     BTFSS STATUS, 0x2
+0142  2947     GOTO 0x147
+0143  3004     MOVLW 0x4
+0144  0253     SUBWF lngPulsesWorking, W
+0145  1C03     BTFSS STATUS, 0x0
+0146  2949     GOTO 0x149
+0147  0022     MOVLB 0x2
+0148  148E     BSF LATC, 0x1
+280:                                   if ((lngPulsesNotWorking >0)&&((lngPulsesWorking/lngPulsesNotWorking)>=SHOCK_ERROR_CRITERIA) )
+0149  0020     MOVLB 0x0
+014A  1BDA     BTFSC 0x5A, 0x7
+014B  296D     GOTO 0x16D
+014C  085A     MOVF 0x5A, W
+014D  1D03     BTFSS STATUS, 0x2
+014E  2959     GOTO 0x159
+014F  0859     MOVF 0x59, W
+0150  1D03     BTFSS STATUS, 0x2
+0151  2959     GOTO 0x159
+0152  0858     MOVF 0x58, W
+0153  1D03     BTFSS STATUS, 0x2
+0154  2959     GOTO 0x159
+0155  3001     MOVLW 0x1
+0156  0257     SUBWF lngPulsesNotWorking, W
+0157  1C03     BTFSS STATUS, 0x0
+0158  296D     GOTO 0x16D
+0159  22A2     CALL 0x2A2
+015A  238B     CALL 0x38B
+015B  1BF3     BTFSC channel, 0x7
+015C  296D     GOTO 0x16D
+015D  0873     MOVF channel, W
+015E  1D03     BTFSS STATUS, 0x2
+015F  296A     GOTO 0x16A
+0160  0872     MOVF 0x72, W
+0161  1D03     BTFSS STATUS, 0x2
+0162  296A     GOTO 0x16A
+0163  0871     MOVF 0x71, W
+0164  1D03     BTFSS STATUS, 0x2
+0165  296A     GOTO 0x16A
+0166  3003     MOVLW 0x3
+0167  0270     SUBWF __pcstackCOMMON, W
+0168  1C03     BTFSS STATUS, 0x0
+0169  296D     GOTO 0x16D
+281:                                   {
+282:                                       outShockErr_SetHigh();
+016A  0022     MOVLB 0x2
+016B  148E     BSF LATC, 0x1
+016C  296F     GOTO 0x16F
+283:                                   }
+284:                                   else
+285:                                   {
+286:                                       outShockErr_SetLow();
+016D  0022     MOVLB 0x2
+016E  108E     BCF LATC, 0x1
+287:                                   }
+288:                                   outShockSupply_SetLow(); //Deenergise the shock sensor
+016F  110E     BCF LATC, 0x2
+0170  2A27     GOTO 0x227
+289:                                // !!! Disable interrupt from shock, calculate pulses and set Shock output
+290:                               }
+291:                               
+292:                           }
+293:                           break;
+294:           
+295:           
+296:                       // /////////////////////////////////////////////////////////////// //
+297:                           case 7: //Stop the valve when the ZIGBEE sends 0 or the time for stopping forcely become and check magnetising again
+298:                           timeForDemagnetising++;
+0171  0AC1     INCF 0x141, F
+0172  1903     BTFSC 0x103, 0x2
+0173  0AC2     INCF 0x142, F
+299:                           if( timeForDemagnetising > TIME_FOR_DEMAGNETISING)
+0174  0842     MOVF 0x142, W
+0175  3A80     XORLW 0x80
+0176  00B8     MOVWF 0x138
+0177  3080     MOVLW 0x80
+0178  0238     SUBWF 0x138, W
+0179  1D03     BTFSS 0x103, 0x2
+017A  297D     GOTO 0x17D
+017B  300B     MOVLW 0xB
+017C  0241     SUBWF 0x141, W
+017D  1C03     BTFSS 0x103, 0x0
+017E  2A27     GOTO 0x227
+300:                           {
+301:                            if(!inpValveMonitoringSensor_GetValue()) outValveState_SetHigh();
+017F  0020     MOVLB 0x0
+0180  1A0C     BTFSC PORTA, 0x4
+0181  2985     GOTO 0x185
+0182  0022     MOVLB 0x2
+0183  168C     BSF LATA, 0x5
+0184  2987     GOTO 0x187
+302:                            else outValveState_SetLow(); //Show RID sensor condition
+0185  0022     MOVLB 0x2
+0186  128C     BCF LATA, 0x5
+303:                            ucValveState=8;            //go to next step
+0187  3008     MOVLW 0x8
+0188  0020     MOVLB 0x0
+0189  00DB     MOVWF ucValveState
+018A  2A27     GOTO 0x227
+304:                           }
+305:                           break;
+306:           
+307:           
+308:           
+309:           
+310:           
+311:                       // /////////////////////////////////////////////////////////////// //
+312:                           case 8: //If the ZIGBEE don't send a STOP signal after 15 minutes, stop the valve and send signal to ZIGBEE
+313:           
+314:                           ucValveState=9;         //it was done in step 6
+018B  3009     MOVLW 0x9
+018C  00DB     MOVWF ucValveState
+315:                           pulses=0;   //preparing to reading shock sensor
+018D  01DF     CLRF pulses
+018E  01E0     CLRF 0x60
+018F  01E1     CLRF 0x61
+0190  01E2     CLRF 0x62
+316:           
+317:                           /*RESET ZIGBEE may be should be here*/
+318:           
+319:                   {//RESET Zigbee:
+320:                       outResetZigbee_SetHigh();                               //  Set RESET output to HIGH
+0191  0022     MOVLB 0x2
+0192  160E     BSF LATC, 0x4
+321:                       for(unsigned char k=0; k< RESET_DURATION; k++) SLEEP(); //wait RESET_DURATION cycles *0.1s
+0193  0020     MOVLB 0x0
+0194  01D2     CLRF k
+0195  300F     MOVLW 0xF
+0196  0252     SUBWF k, W
+0197  1803     BTFSC STATUS, 0x0
+0198  299D     GOTO 0x19D
+0199  0063     SLEEP
+019A  0020     MOVLB 0x0
+019B  0AD2     INCF k, F
+019C  2995     GOTO 0x195
+322:                       outResetZigbee_SetLow();                                // clear RESET output
+019D  0022     MOVLB 0x2
+019E  120E     BCF LATC, 0x4
+019F  22C7     CALL 0x2C7
+323:                       ulgCyclesForReset=0;                                    // clear reset counter
+324:                   }
+325:                           
+326:                                //supplying the shock sensor
+327:                           break;
+01A0  2A27     GOTO 0x227
+328:           
+329:           
+330:           
+331:           
+332:                       // /////////////////////////////////////////////////////////////// //
+333:                           case 9: //Wait 2 minutes and check SHOCK. If after 2 minutes sprinkler is still sprinkling, send signal to ZIGBEE
+334:                               timeForStopping++; //counts stopping time
+01A1  0ACD     INCF 0x14D, F
+01A2  1903     BTFSC 0x103, 0x2
+01A3  0ACE     INCF 0x14E, F
+335:                               if (timeForStopping>TIME_FOR_STOPPING) // is stopping time done?
+01A4  084E     MOVF 0x14E, W
+01A5  3A80     XORLW 0x80
+01A6  00B8     MOVWF 0x138
+01A7  3084     MOVLW 0x84
+01A8  0238     SUBWF 0x138, W
+01A9  1D03     BTFSS 0x103, 0x2
+01AA  29AD     GOTO 0x1AD
+01AB  30B1     MOVLW 0xB1
+01AC  024D     SUBWF 0x14D, W
+01AD  1C03     BTFSS 0x103, 0x0
+01AE  2A06     GOTO 0x206
+336:                               {//Yes, we have to check shock
+337:                                   outShockSupply_SetHigh ();  //Energize the shock sensor
+01AF  0022     MOVLB 0x2
+01B0  150E     BSF LATC, 0x2
+338:                                   INTERRUPT_PeripheralInterruptEnable();  //Enable peripheral interrupts
+01B1  170B     BSF 0x10B, 0x6
+339:                                   if (timeForStopping>TIME_FOR_STOPPING + IS_TIME_FOR_CHECK_SHOCK)
+01B2  0020     MOVLB 0x0
+01B3  084E     MOVF 0x4E, W
+01B4  3A80     XORLW 0x80
+01B5  00B8     MOVWF 0x38
+01B6  3087     MOVLW 0x87
+01B7  0238     SUBWF 0x38, W
+01B8  1D03     BTFSS STATUS, 0x2
+01B9  29BC     GOTO 0x1BC
+01BA  3009     MOVLW 0x9
+01BB  024D     SUBWF timeForStopping, W
+01BC  1C03     BTFSS STATUS, 0x0
+01BD  2A27     GOTO 0x227
+340:                                   {
+341:                                   lngPulsesNotWorking=pulses;
+01BE  0020     MOVLB 0x0
+01BF  0862     MOVF 0x62, W
+01C0  00DA     MOVWF 0x5A
+01C1  0861     MOVF 0x61, W
+01C2  00D9     MOVWF 0x59
+01C3  0860     MOVF 0x60, W
+01C4  00D8     MOVWF 0x58
+01C5  085F     MOVF pulses, W
+01C6  00D7     MOVWF lngPulsesNotWorking
+342:                                   if ((lngPulsesNotWorking==0) && (lngPulsesWorking>SHOCK_ERROR_CRITERIA)) outShockErr_SetHigh();
+01C7  22CD     CALL 0x2CD
+01C8  1903     BTFSC STATUS, 0x2
+01C9  1BD6     BTFSC 0x56, 0x7
+01CA  29DA     GOTO 0x1DA
+01CB  0856     MOVF 0x56, W
+01CC  1D03     BTFSS STATUS, 0x2
+01CD  29D8     GOTO 0x1D8
+01CE  0855     MOVF 0x55, W
+01CF  1D03     BTFSS STATUS, 0x2
+01D0  29D8     GOTO 0x1D8
+01D1  0854     MOVF 0x54, W
+01D2  1D03     BTFSS STATUS, 0x2
+01D3  29D8     GOTO 0x1D8
+01D4  3004     MOVLW 0x4
+01D5  0253     SUBWF lngPulsesWorking, W
+01D6  1C03     BTFSS STATUS, 0x0
+01D7  29DA     GOTO 0x1DA
+01D8  0022     MOVLB 0x2
+01D9  148E     BSF LATC, 0x1
+343:                                   if ((lngPulsesNotWorking >0)&&((lngPulsesWorking/lngPulsesNotWorking)>=SHOCK_ERROR_CRITERIA) )
+01DA  0020     MOVLB 0x0
+01DB  1BDA     BTFSC 0x5A, 0x7
+01DC  29FE     GOTO 0x1FE
+01DD  085A     MOVF 0x5A, W
+01DE  1D03     BTFSS STATUS, 0x2
+01DF  29EA     GOTO 0x1EA
+01E0  0859     MOVF 0x59, W
+01E1  1D03     BTFSS STATUS, 0x2
+01E2  29EA     GOTO 0x1EA
+01E3  0858     MOVF 0x58, W
+01E4  1D03     BTFSS STATUS, 0x2
+01E5  29EA     GOTO 0x1EA
+01E6  3001     MOVLW 0x1
+01E7  0257     SUBWF lngPulsesNotWorking, W
+01E8  1C03     BTFSS STATUS, 0x0
+01E9  29FE     GOTO 0x1FE
+01EA  22A2     CALL 0x2A2
+01EB  238B     CALL 0x38B
+01EC  1BF3     BTFSC channel, 0x7
+01ED  29FE     GOTO 0x1FE
+01EE  0873     MOVF channel, W
+01EF  1D03     BTFSS STATUS, 0x2
+01F0  29FB     GOTO 0x1FB
+01F1  0872     MOVF 0x72, W
+01F2  1D03     BTFSS STATUS, 0x2
+01F3  29FB     GOTO 0x1FB
+01F4  0871     MOVF 0x71, W
+01F5  1D03     BTFSS STATUS, 0x2
+01F6  29FB     GOTO 0x1FB
+01F7  3003     MOVLW 0x3
+01F8  0270     SUBWF __pcstackCOMMON, W
+01F9  1C03     BTFSS STATUS, 0x0
+01FA  29FE     GOTO 0x1FE
+344:                                   {
+345:                                       outShockErr_SetLow();
+01FB  0022     MOVLB 0x2
+01FC  108E     BCF LATC, 0x1
+01FD  2A00     GOTO 0x200
+346:                                   }
+347:                                   else
+348:                                   {
+349:                                       outShockErr_SetHigh();
+01FE  0022     MOVLB 0x2
+01FF  148E     BSF LATC, 0x1
+350:                                   }
+351:                                   outShockSupply_SetLow(); //Deenergize the shock sensor
+0200  110E     BCF LATC, 0x2
+352:                                   ucValveState=10; //end of valve cycle
+0201  300A     MOVLW 0xA
+0202  0020     MOVLB 0x0
+0203  00DB     MOVWF ucValveState
+353:                                // !!! Disable interrupt from shock, calculate pulses and set Shock output
+354:                                   INTERRUPT_PeripheralInterruptDisable(); //Disable peripheral interrupts
+0204  130B     BCF INTCON, 0x6
+0205  2A27     GOTO 0x227
+355:                                   }
+356:                               }
+357:                               else
+358:                               {
+359:                                   pulses=0;
+0206  0020     MOVLB 0x0
+0207  22D2     CALL 0x2D2
+0208  2A27     GOTO 0x227
+360:           
+361:                                 /*code for checking the shock sensor have to be here*/
+362:                               }
+363:                           break;
+364:           
+365:           
+366:           
+367:                       // /////////////////////////////////////////////////////////////// //
+368:                           case 10:  //end of the process, clear all temporary variables
+369:           
+370:                               bDoNotSleep=0;
+0209  1067     BCF bInterrupted, 0x0
+371:                               if (inpStartSolenoid_GetValue()) //we have START signal, but start is not possible
+020A  1A0D     BTFSC PORTB, 0x4
+020B  292B     GOTO 0x12B
+372:                              {
+373:                               NOP();                  //Wait for STOP signal and show valve magnetizing
+374:                              }
+375:                               else
+376:                               {
+377:                               timeForHighVoltageOnSolenoid = 0;       //here is stored how many cycles are passed from start solenoid command to time for reduce voltage
+020C  01C9     CLRF timeForHighVoltageOnSolenoid
+020D  01CA     CLRF 0x4A
+378:                               timeToSupplyShock=0;                    //here is stored how many cycles are passed from reducing the solenoid voltage to energizing the shock
+020E  01BD     CLRF timeToSupplyShock
+020F  01BE     CLRF 0x3E
+379:                               timeToCheckingShock=0;                  //here is stored how many cycles are passed from energizing the shock to start checking it
+0210  01BF     CLRF timeToCheckingShock
+0211  01C0     CLRF 0x40
+380:                               timeForDemagnetising=0;                 //how mani cycles are passed from clearing of PWM1 to reading Shock
+0212  01C1     CLRF timeForDemagnetising
+0213  01C2     CLRF 0x42
+381:                               timeForSprinkling =0;
+0214  01CB     CLRF timeForSprinkling
+0215  01CC     CLRF 0x4C
+382:                               timeForStopping=0;      
+0216  01CD     CLRF timeForStopping
+0217  01CE     CLRF 0x4E
+383:                               outShockSupply_SetLow();                //supply of the shock sensor is switched off
+0218  0022     MOVLB 0x2
+0219  110E     BCF LATC, 0x2
+384:                               ucValveState=0 ;                        //go to initial state
+021A  0020     MOVLB 0x0
+021B  01DB     CLRF ucValveState
+021C  2A27     GOTO 0x227
+385:                               }
+386:                           break;
+387:           
+388:           
+389:           
+390:                       // /////////////////////////////////////////////////////////////// //
+391:                           default: // we hawe software (logic) mistake
+392:           ucValveState = 10;
+393:                           break;
+394:                       // /////////////////////////////////////////////////////////////// //
+395:           
+396:                   }
+397:           
+398:           
+399:               //
+400:               /* ************************************LEDS control ********************************************************************************
+401:                *  1. If battery voltage is over 10 volts and inpStartLEDs=1, put the LEDS in flashing condition
+402:                *  2. Measure flashing time, PHV voltage and battery voltage
+403:                *  3. When the flashing time exceeded 14 hours or PHV voltage rising over 16V, or inpStartLEDs=0 or battery voltage falls under 10V
+404:                *  stop the LEDS and send signal to Zigbee
+405:                *
+406:                ********************************************************************************************************************************  */
+407:           
+408:               if (inpStartLEDs_GetValue())
+0227  0020     MOVLB 0x0
+0228  1E8D     BTFSS PORTB, 0x5
+0229  2A71     GOTO 0x271
+409:               {
+410:                   
+411:                   if (ReadPHVVoltage() > VOLTAGE_FOR_CHARGING)
+022A  309A     MOVLW 0x9A
+022B  00B2     MOVWF ff1
+022C  3071     MOVLW 0x71
+022D  00B3     MOVWF 0x33
+022E  3041     MOVLW 0x41
+022F  00B4     MOVWF 0x34
+0230  2457     CALL 0x457
+0231  0829     MOVF 0x29, W
+0232  00B5     MOVWF ff2
+0233  082A     MOVF 0x2A, W
+0234  00B6     MOVWF 0x36
+0235  082B     MOVF 0x2B, W
+0236  00B7     MOVWF 0x37
+0237  2520     CALL 0x520
+0238  1803     BTFSC STATUS, 0x0
+0239  2A77     GOTO 0x277
+412:                   {
+413:           
+414:                      if (ulgCyclesForLEDs < LEDS_LIGHTING_TIME)
+023A  083C     MOVF 0x3C, W
+023B  1D03     BTFSS STATUS, 0x2
+023C  2A77     GOTO 0x277
+023D  3060     MOVLW 0x60
+023E  0239     SUBWF ulgCyclesForLEDs, W
+023F  303D     MOVLW 0x3D
+0240  3B3A     SUBWFB 0x3A, W
+0241  3008     MOVLW 0x8
+0242  3B3B     SUBWFB 0x3B, W
+0243  1803     BTFSC STATUS, 0x0
+0244  2A77     GOTO 0x277
+415:                   {
+416:                     ulgCyclesForLEDs++ ;
+0245  3001     MOVLW 0x1
+0246  07B9     ADDWF ulgCyclesForLEDs, F
+0247  3000     MOVLW 0x0
+0248  3DBA     ADDWFC 0x3A, F
+0249  3DBB     ADDWFC 0x3B, F
+024A  3DBC     ADDWFC 0x3C, F
+417:                     if (outLEDsSupply_GetValue())
+024B  1D8E     BTFSS PORTC, 0x3
+024C  2A5E     GOTO 0x25E
+418:                     {
+419:                         intLedsOnTime++;
+024D  0AC3     INCF intLedsOnTime, F
+024E  1903     BTFSC STATUS, 0x2
+024F  0AC4     INCF 0x44, F
+420:                         intLedsOffTime=1;
+0250  01C5     CLRF intLedsOffTime
+0251  0AC5     INCF intLedsOffTime, F
+0252  01C6     CLRF 0x46
+421:                         if (intLedsOnTime > LEDS_ON_TIME) outLEDsSupply_SetLow();
+0253  0844     MOVF 0x44, W
+0254  3A80     XORLW 0x80
+0255  00B8     MOVWF 0x38
+0256  3080     MOVLW 0x80
+0257  0238     SUBWF 0x38, W
+0258  3008     MOVLW 0x8
+0259  1903     BTFSC STATUS, 0x2
+025A  0243     SUBWF intLedsOnTime, W
+025B  1803     BTFSC STATUS, 0x0
+025C  2A75     GOTO 0x275
+025D  2A77     GOTO 0x277
+0275  0022     MOVLB 0x2
+0276  118E     BCF LATC, 0x3
+422:                     }
+423:                     else
+424:                     {
+425:                         intLedsOffTime++;
+025E  0AC5     INCF 0x145, F
+025F  1903     BTFSC 0x103, 0x2
+0260  0AC6     INCF 0x146, F
+426:                         intLedsOnTime=0;
+0261  01C3     CLRF 0x143
+0262  01C4     CLRF 0x144
+427:                         if (intLedsOffTime > LEDS_OFF_TIME) outLEDsSupply_SetHigh();
+0263  0846     MOVF 0x146, W
+0264  3A80     XORLW 0x80
+0265  00B8     MOVWF 0x138
+0266  3080     MOVLW 0x80
+0267  0238     SUBWF 0x138, W
+0268  1D03     BTFSS 0x103, 0x2
+0269  2A6C     GOTO 0x26C
+026A  300F     MOVLW 0xF
+026B  0245     SUBWF 0x145, W
+026C  1C03     BTFSS 0x103, 0x0
+026D  2A77     GOTO 0x277
+026E  0022     MOVLB 0x2
+026F  158E     BSF LATC, 0x3
+0270  2A77     GOTO 0x277
+428:                     }
+429:                   }
+430:                   }
+431:               }
+432:               else
+433:               {
+434:                   ulgCyclesForLEDs=0;
+0271  01B9     CLRF 0x139
+0272  01BA     CLRF 0x13A
+0273  01BB     CLRF 0x13B
+0274  01BC     CLRF 0x13C
+435:                   outLEDsSupply_SetLow();
+436:               }
+437:           
+438:           
+439:                //
+440:                //
+441:                //
+442:               /* 
+443:                * Send RESET time to time ...
+444:                *
+445:                **/
+446:           
+447:           
+448:           
+449:           
+450:           
+451:                /*
+452:                * Code for I am alive LED
+453:                *
+454:                **/
+455:                   if (ucIAmAliveON < I_AM_ALIVE_ON_TIME)
+0277  3003     MOVLW 0x3
+0278  0020     MOVLB 0x0
+0279  0247     SUBWF ucIAmAliveON, W
+027A  1803     BTFSC STATUS, 0x0
+027B  2A80     GOTO 0x280
+456:                   {
+457:                   ucIAmAliveON++;
+027C  0AC7     INCF ucIAmAliveON, F
+458:                   outIAmAlive_SetHigh();
+027D  0022     MOVLB 0x2
+027E  178E     BSF LATC, 0x7
+027F  2A89     GOTO 0x289
+459:                   }
+460:                   else if (ucIAmAliveOFF < I_AM_ALIVE_OFF_TIME)
+0280  3007     MOVLW 0x7
+0281  0248     SUBWF 0x148, W
+0282  1C03     BTFSS 0x103, 0x0
+0283  2A86     GOTO 0x286
+461:                   {
+462:                    ucIAmAliveOFF++;
+463:                    outIAmAlive_SetLow();   
+0287  0022     MOVLB 0x2
+0288  138E     BCF LATC, 0x7
+464:                   }
+465:                   else
+466:                   {
+467:                       ucIAmAliveON=0;
+0284  01C7     CLRF 0x147
+468:                       ucIAmAliveOFF=1;
+0285  01C8     CLRF 0x148
+0286  0AC8     INCF 0x148, F
+469:                       outIAmAlive_SetLow();
+470:                   }
+471:                   
+472:           
+473:           
+474:               //enter sleep mode - wait for interrupt:
+475:                   bInterrupted=0;
+0289  0020     MOVLB 0x0
+028A  10E7     BCF bInterrupted, 0x1
+476:                   if (bDoNotSleep == 1)   //if PWM is active
+028B  1867     BTFSC bInterrupted, 0x0
+028C  2A8F     GOTO 0x28F
+028D  2A93     GOTO 0x293
+477:                   {
+478:                     while(!bInterrupted)  // Wait for an interrupt. Can't sleep because of PWM
+479:                    {
+480:                         NOP();
+028E  0000     NOP
+481:                     }
+028F  0020     MOVLB 0x0
+0290  18E7     BTFSC bInterrupted, 0x1
+0291  285A     GOTO 0x5A
+0292  2A8E     GOTO 0x28E
+482:                   }
+483:                   else       //PWM is not active
+484:                   {
+485:                     SLEEP(); //Wait for an interrupt
+0293  0063     SLEEP
+486:                   }
+487:           
+488:                  
+489:               }
+490:               return (EXIT_SUCCESS);
+491:           }
+492:           
+493:           
+494:           unsigned int ReadADCValue(int channel) {
+495:            ADCON0bits.CHS = channel;ADCON0bits.GO_nDONE = 1;
+496:            while (ADCON0bits.GO);
+497:            return ((ADRESH * 256) + ADRESL);
+498:            }
+499:           
+500:           
+501:           float ReadainVBatt()
+502:           {
+503:               float sum;
+504:                sum=0;
+04E4  0020     MOVLB 0x0
+04E5  01AF     CLRF sum
+04E6  01B0     CLRF 0x30
+04E7  01B1     CLRF 0x31
+505:               for (int i=0; i<10; i++)
+04E8  01AD     CLRF i
+04E9  01AE     CLRF 0x2E
+04FC  0AAD     INCF i, F
+04FD  1903     BTFSC STATUS, 0x2
+04FE  0AAE     INCF 0x2E, F
+04FF  082E     MOVF 0x2E, W
+0500  3A80     XORLW 0x80
+0501  00AC     MOVWF 0x2C
+0502  3080     MOVLW 0x80
+0503  022C     SUBWF 0x2C, W
+0504  1D03     BTFSS STATUS, 0x2
+0505  2D08     GOTO 0x508
+0506  300A     MOVLW 0xA
+0507  022D     SUBWF i, W
+0508  1C03     BTFSS STATUS, 0x0
+0509  2CEA     GOTO 0x4EA
+506:               {
+507:                   sum=sum+ADC_GetConversion(ainVBatt);
+04EA  3004     MOVLW 0x4
+04EB  2571     CALL 0x571
+04EC  24A1     CALL 0x4A1
+04ED  259C     CALL 0x59C
+04EE  2492     CALL 0x492
+04EF  082F     MOVF sum, W
+04F0  00A3     MOVWF cntr
+04F1  0830     MOVF 0x30, W
+04F2  00A4     MOVWF f3
+04F3  0831     MOVF 0x31, W
+04F4  00A5     MOVWF 0x25
+04F5  22D7     CALL 0x2D7
+04F6  0820     MOVF __pcstackBANK0, W
+04F7  00AF     MOVWF sum
+04F8  0821     MOVF 0x21, W
+04F9  00B0     MOVWF 0x30
+04FA  0822     MOVF 0x22, W
+04FB  00B1     MOVWF 0x31
+508:               }
+509:                sum=sum/10;
+050A  249A     CALL 0x49A
+050B  082F     MOVF sum, W
+050C  00FB     MOVWF f1
+050D  0830     MOVF 0x30, W
+050E  00FC     MOVWF 0x7C
+050F  0831     MOVF 0x31, W
+0510  00FD     MOVWF 0x7D
+0511  23F7     CALL 0x3F7
+0512  0878     MOVF c, W
+0513  0020     MOVLB 0x0
+0514  00AF     MOVWF sum
+0515  0879     MOVF sign, W
+0516  00B0     MOVWF 0x30
+0517  087A     MOVF quotient, W
+0518  00B1     MOVWF 0x31
+510:                
+511:               return sum;
+0519  082F     MOVF sum, W
+051A  00A9     MOVWF 0x29
+051B  0830     MOVF 0x30, W
+051C  00AA     MOVWF 0x2A
+051D  0831     MOVF 0x31, W
+051E  00AB     MOVWF 0x2B
+512:           }
+051F  0008     RETURN
+513:           
+514:           float ReadPHVVoltage()
+515:           {
+516:           
+517:            float sum;
+518:                sum=0;
+0457  01AF     CLRF sum
+0458  01B0     CLRF 0x30
+0459  01B1     CLRF 0x31
+519:               for (int i=0; i<10; i++)
+045A  01AD     CLRF i
+045B  01AE     CLRF 0x2E
+046E  0AAD     INCF i, F
+046F  1903     BTFSC STATUS, 0x2
+0470  0AAE     INCF 0x2E, F
+0471  082E     MOVF 0x2E, W
+0472  3A80     XORLW 0x80
+0473  00AC     MOVWF 0x2C
+0474  3080     MOVLW 0x80
+0475  022C     SUBWF 0x2C, W
+0476  1D03     BTFSS STATUS, 0x2
+0477  2C7A     GOTO 0x47A
+0478  300A     MOVLW 0xA
+0479  022D     SUBWF i, W
+047A  1C03     BTFSS STATUS, 0x0
+047B  2C5C     GOTO 0x45C
+047C  249A     CALL 0x49A
+520:               {
+521:                   sum=sum+ADC_GetConversion(ainVSolar);
+045C  3008     MOVLW 0x8
+045D  2571     CALL 0x571
+045E  24A1     CALL 0x4A1
+045F  259C     CALL 0x59C
+0460  2492     CALL 0x492
+0461  082F     MOVF sum, W
+0462  00A3     MOVWF cntr
+0463  0830     MOVF 0x30, W
+0464  00A4     MOVWF f3
+0465  0831     MOVF 0x31, W
+0466  00A5     MOVWF 0x25
+0467  22D7     CALL 0x2D7
+0468  0820     MOVF __pcstackBANK0, W
+0469  00AF     MOVWF sum
+046A  0821     MOVF 0x21, W
+046B  00B0     MOVWF 0x30
+046C  0822     MOVF 0x22, W
+046D  00B1     MOVWF 0x31
+522:               }
+523:                sum=sum/10;
+047D  082F     MOVF sum, W
+047E  00FB     MOVWF f1
+047F  0830     MOVF 0x30, W
+0480  00FC     MOVWF 0x7C
+0481  0831     MOVF 0x31, W
+0482  00FD     MOVWF 0x7D
+0483  23F7     CALL 0x3F7
+0484  0878     MOVF c, W
+0485  0020     MOVLB 0x0
+0486  00AF     MOVWF sum
+0487  0879     MOVF sign, W
+0488  00B0     MOVWF 0x30
+0489  087A     MOVF quotient, W
+048A  00B1     MOVWF 0x31
+524:               return sum;
+048B  082F     MOVF sum, W
+048C  00A9     MOVWF 0x29
+048D  0830     MOVF 0x30, W
+048E  00AA     MOVWF 0x2A
+048F  0831     MOVF 0x31, W
+0490  00AB     MOVWF 0x2B
+525:           
+526:           
+527:           }
+0491  0008     RETURN
+528:           
+529:           
+530:           
+531:           
+---  C:/Program Files (x86)/Microchip/xc8/v1.34/sources/common/lwtoft.c  --------------------------------
+1:             /*	Floating point routines.
+2:             
+3:             	Copyright (c) 2012 Microchip Technology Inc. All rights reserved.
+4:             */
+5:             
+6:             // this is bigendian code right now. Need to parameterise it.
+7:             
+8:             #include	"ftarith.h"
+9:             
+10:            
+11:            // Convert unsigned int to float
+12:            
+13:            #ifdef _OLDLIB
+14:            #define	f1_as_mant1	(*(unsigned short long *)&f1)
+15:            float
+16:            __lwtoft(unsigned int c)
+17:            {
+18:            	float	f1;
+19:            	
+20:            	if(c == 0)
+21:            		return 0.0;
+22:            	f1_as_mant1 = c;
+23:            	__ftpack(&f1_as_mant1, 127+15);
+24:            	return f1;
+25:            }
+26:            #else
+27:            float
+28:            __lwtoft(unsigned int c)
+29:            {
+30:            	return __ftpack(c, 127+15, 0);
+059C  0878     MOVF c, W
+059D  00F0     MOVWF __pcstackCOMMON
+059E  0879     MOVF sign, W
+059F  00F1     MOVWF 0x71
+05A0  308E     MOVLW 0x8E
+05A1  01F2     CLRF 0x72
+05A2  00F3     MOVWF channel
+05A3  01F4     CLRF sign
+05A4  24A6     CALL 0x4A6
+05A5  0870     MOVF __pcstackCOMMON, W
+05A6  00F8     MOVWF c
+05A7  0871     MOVF 0x71, W
+05A8  00F9     MOVWF sign
+05A9  0872     MOVF 0x72, W
+05AA  00FA     MOVWF quotient
+31:            }
+05AB  0008     RETURN
+32:            #endif
+---  C:/Program Files (x86)/Microchip/xc8/v1.34/sources/common/ftge.c  ----------------------------------
+1:             #define	f1	(*(unsigned short long *)&ff1)
+2:             #define	f2	(*(unsigned short long *)&ff2)
+3:             bit
+4:             __ftge(float ff1, float ff2)
+5:             {
+6:             	if(f1 &  0x800000UL)
+0520  1FB4     BTFSS 0x34, 0x7
+0521  2D2F     GOTO 0x52F
+7:             		f1 = 0x800000UL - f1;
+0522  0832     MOVF ff1, W
+0523  3C00     SUBLW 0x0
+0524  00B2     MOVWF ff1
+0525  0833     MOVF 0x33, W
+0526  1C03     BTFSS STATUS, 0x0
+0527  0F33     INCFSZ 0x33, W
+0528  3C00     SUBLW 0x0
+0529  00B3     MOVWF 0x33
+052A  0834     MOVF 0x34, W
+052B  1C03     BTFSS STATUS, 0x0
+052C  0F34     INCFSZ 0x34, W
+052D  3C80     SUBLW 0x80
+052E  00B4     MOVWF 0x34
+8:             	if(f2 &  0x800000UL)
+052F  1FB7     BTFSS 0x37, 0x7
+0530  2D3E     GOTO 0x53E
+9:             		f2 = 0x800000UL - f2;
+0531  0835     MOVF ff2, W
+0532  3C00     SUBLW 0x0
+0533  00B5     MOVWF ff2
+0534  0836     MOVF 0x36, W
+0535  1C03     BTFSS STATUS, 0x0
+0536  0F36     INCFSZ 0x36, W
+0537  3C00     SUBLW 0x0
+0538  00B6     MOVWF 0x36
+0539  0837     MOVF 0x37, W
+053A  1C03     BTFSS STATUS, 0x0
+053B  0F37     INCFSZ 0x37, W
+053C  3C80     SUBLW 0x80
+053D  00B7     MOVWF 0x37
+10:            	f1 ^= 0x800000UL;
+053E  3080     MOVLW 0x80
+053F  06B4     XORWF 0x34, F
+11:            	f2 ^= 0x800000UL;
+0540  06B7     XORWF 0x37, F
+12:            	return f1 >= f2;
+0541  0837     MOVF 0x37, W
+13:            }
+---  C:/Program Files (x86)/Microchip/xc8/v1.34/sources/common/ftdiv.c  ---------------------------------
+1:             /*	Floating point routines.
+2:             
+3:             	Copyright (c) 2012 Microchip Technology Inc. All rights reserved.
+4:             */
+5:             
+6:             // this is bigendian code right now. Need to parameterise it.
+7:             
+8:             #include	"ftarith.h"
+9:             
+10:            #define	f1_as_dividend	(*(unsigned short long *)&f1)
+11:            #define	f2_as_divisor	(*(unsigned short long *)&f2)
+12:            #define	f3_as_quot	(*(unsigned short long *)&f3)
+13:            
+14:            // floating addition
+15:            #ifdef _OLDLIB
+16:            #define	cntr		sign2
+17:            float
+18:            #ifdef _PIC18
+19:            __ftdiv(float f1, float f2)
+20:            #else
+21:            __ftdiv(float f2, float f1)
+22:            #endif
+23:            {
+24:            	unsigned char	exp1, exp2, sign1, sign2;
+25:            	float	f3;
+26:            	
+27:            	f3_as_quot = 0;
+28:            	sign1 = __ftunpack(&f1_as_dividend, &exp1);
+29:            	if(exp1 == 0)
+30:            		return f3;
+31:            	sign2 = __ftunpack(&f2_as_divisor, &exp2);
+32:            	if(exp2 == 0)
+33:            		return f3;
+34:            	exp1 -= exp2-127+8;	// compute new exponent
+35:            	sign1 ^= sign2;
+36:            	cntr = 16+8;
+37:            	do {
+38:            		f3_as_quot <<= 1;
+39:            		if(f1_as_dividend >= f2_as_divisor) {
+40:            			f1_as_dividend -= f2_as_divisor;
+41:            			f3_as_quot |= 1;
+42:            		}
+43:            		f1_as_dividend <<= 1;
+44:            	} while(--cntr != 0);
+45:            	__ftpack(&f3_as_quot, exp1);
+46:            	if(sign1)
+47:            		f3_as_quot |= 0x800000;
+48:            	return f3;
+49:            }
+50:            #else
+51:            #define	exp2	sign
+52:            float
+53:            #ifdef _PIC18
+54:            __ftdiv(float f1, float f2)
+55:            #else
+56:            __ftdiv(float f2, float f1)
+57:            #endif
+58:            {
+59:            	unsigned char	exp, sign, cntr;
+60:            	float	f3;
+61:            	
+62:            	// unpack the operands
+63:            	if((exp = f1_as_dividend >> 15) == 0)
+03F7  087B     MOVF f1, W
+03F8  00A0     MOVWF __pcstackBANK0
+03F9  087C     MOVF 0x7C, W
+03FA  00A1     MOVWF 0x21
+03FB  087D     MOVF 0x7D, W
+03FC  00A2     MOVWF 0x22
+03FD  1003     BCF STATUS, 0x0
+03FE  0D21     RLF 0x21, W
+03FF  0D22     RLF 0x22, W
+0400  00A7     MOVWF exp
+0401  0827     MOVF exp, W
+0402  1D03     BTFSS STATUS, 0x2
+0403  2C05     GOTO 0x405
+64:            		return 0.0;
+0404  2C53     GOTO 0x453
+65:            	if((exp2 = f2_as_divisor >> 15) == 0)
+0405  0878     MOVF c, W
+0406  00A0     MOVWF __pcstackBANK0
+0407  0879     MOVF sign, W
+0408  00A1     MOVWF 0x21
+0409  087A     MOVF quotient, W
+040A  00A2     MOVWF 0x22
+040B  1003     BCF STATUS, 0x0
+040C  0D21     RLF 0x21, W
+040D  0D22     RLF 0x22, W
+040E  00A8     MOVWF sign
+040F  0828     MOVF sign, W
+0410  1D03     BTFSS STATUS, 0x2
+0411  2C13     GOTO 0x413
+0412  2C53     GOTO 0x453
+66:            		return 0.0;
+67:            	f3_as_quot = 0;
+0414  01A4     CLRF f3
+0415  01A5     CLRF 0x25
+0416  01A6     CLRF sign
+68:            	exp -= exp2-127+8;	// compute new exponent
+0413  3089     MOVLW 0x89
+0417  0728     ADDWF sign, W
+0418  00A0     MOVWF __pcstackBANK0
+0419  02A7     SUBWF exp, F
+69:            	sign = f1_as_dividend >> 16;
+041A  087D     MOVF 0x7D, W
+041B  00A8     MOVWF sign
+70:            	sign ^= (unsigned char)(f2_as_divisor >> 16);
+041C  087A     MOVF quotient, W
+041D  06A8     XORWF sign, F
+71:            	sign &= 0x80;
+041E  3080     MOVLW 0x80
+041F  05A8     ANDWF sign, F
+72:            	f1_as_dividend |= 0x8000UL;
+0421  17FC     BSF 0x7C, 0x7
+73:            	f1_as_dividend &= 0xFFFFUL;
+0422  01FD     CLRF 0x7D
+74:            	f2_as_divisor |= 0x8000UL;
+0423  17F9     BSF sign, 0x7
+75:            	f2_as_divisor &= 0xFFFFUL;
+0424  01FA     CLRF quotient
+76:            	cntr = 16+8;
+0420  3018     MOVLW 0x18
+0425  00A3     MOVWF cntr
+77:            	do {
+78:            		f3_as_quot <<= 1;
+0426  35A4     LSLF f3, F
+0427  0DA5     RLF 0x25, F
+0428  0DA6     RLF sign, F
+79:            		if(f1_as_dividend >= f2_as_divisor) {
+0429  087A     MOVF quotient, W
+042A  027D     SUBWF 0x7D, W
+042B  1D03     BTFSS STATUS, 0x2
+042C  2C33     GOTO 0x433
+042D  0879     MOVF sign, W
+042E  027C     SUBWF 0x7C, W
+042F  1D03     BTFSS STATUS, 0x2
+0430  2C33     GOTO 0x433
+0431  0878     MOVF c, W
+0432  027B     SUBWF f1, W
+0433  1C03     BTFSS STATUS, 0x0
+0434  2C3C     GOTO 0x43C
+80:            			f1_as_dividend -= f2_as_divisor;
+0435  0878     MOVF c, W
+0436  02FB     SUBWF f1, F
+0437  0879     MOVF sign, W
+0438  3BFC     SUBWFB 0x7C, F
+0439  087A     MOVF quotient, W
+043A  3BFD     SUBWFB 0x7D, F
+81:            			f3_as_quot |= 1;
+043B  1424     BSF f3, 0x0
+82:            		}
+83:            		f1_as_dividend <<= 1;
+043C  35FB     LSLF f1, F
+043D  0DFC     RLF 0x7C, F
+043E  0DFD     RLF 0x7D, F
+84:            	} while(--cntr != 0);
+043F  0BA3     DECFSZ cntr, F
+0440  2C26     GOTO 0x426
+85:            	return __ftpack(f3_as_quot, exp, sign);
+0441  0824     MOVF f3, W
+0442  00F0     MOVWF __pcstackCOMMON
+0443  0825     MOVF 0x25, W
+0444  00F1     MOVWF 0x71
+0445  0826     MOVF sign, W
+0446  00F2     MOVWF 0x72
+0447  0827     MOVF exp, W
+0448  00F3     MOVWF channel
+0449  0828     MOVF sign, W
+044A  00F4     MOVWF sign
+044B  24A6     CALL 0x4A6
+044C  0870     MOVF __pcstackCOMMON, W
+044D  00F8     MOVWF c
+044E  0871     MOVF 0x71, W
+044F  00F9     MOVWF sign
+0450  0872     MOVF 0x72, W
+0451  00FA     MOVWF quotient
+86:            }
+0452  0008     RETURN
+87:            #endif	
+---  C:/Program Files (x86)/Microchip/xc8/v1.34/sources/common/ftadd.c  ---------------------------------
+1:             /*	Floating point routines.
+2:             
+3:             	Copyright (c) 2012 Microchip Technology Inc. All rights reserved.
+4:             */
+5:             
+6:             // this is bigendian code right now. Need to parameterise it.
+7:             
+8:             #include	"ftarith.h"
+9:             
+10:            #define	f1_as_mant1	(*(unsigned short long *)&f1)
+11:            #define	f2_as_mant2	(*(unsigned short long *)&f2)
+12:            
+13:            // floating addition
+14:            #ifdef _OLDLIB
+15:            float
+16:            __ftadd(float f1, float f2)
+17:            {
+18:            	unsigned char	exp1, exp2, sign1, sign2, cntr;
+19:            	
+20:            	if(sizeof(f1_as_mant1) != 3)
+21:            		return 0;
+22:            	sign1 = __ftunpack(&f1_as_mant1, &exp1);
+23:            	if(exp1 == 0)
+24:            		return f2;
+25:            	sign2 = __ftunpack(&f2_as_mant2, &exp2);
+26:            	if(exp2 != 0) {
+27:            		cntr = 6;
+28:            		// determine the smaller number. 
+29:            		if(exp1 < exp2) {
+30:            			if((unsigned char)(exp2-exp1) > sizeof(f1)*8) {
+31:            				// return f2
+32:            				f1_as_mant1 = 0;
+33:            				exp1 = exp2;
+34:            				sign1 = sign2;
+35:            			} else {
+36:            				// f1 has the smaller exponent - we can shift f2_as_mant2 up to 6 bits
+37:            				// left, decrementing exp2.
+38:            				do {
+39:            					f2_as_mant2 <<= 1;
+40:            					exp2--;
+41:            				} while(exp2 != exp1 && --cntr != 0);
+42:            				while(exp1 != exp2) {
+43:            					f1_as_mant1 >>= 1;
+44:            					exp1++;
+45:            				}
+46:            			}
+47:            		} else if(exp1 != exp2) {
+48:            			if((unsigned char)(exp1-exp2) > sizeof(f1)*8)
+49:            				f2_as_mant2 = 0;
+50:            			else {
+51:            				// f2 has the smaller exponent - we can shift f1_as_mant1 up to 6 bits
+52:            				// left, decrementing exp2.
+53:            				do {
+54:            					f1_as_mant1 <<= 1;
+55:            					exp1--;
+56:            				} while(exp2 != exp1 && --cntr != 0);
+57:            				while(exp1 != exp2) {
+58:            					f2_as_mant2 >>= 1;
+59:            					exp2++;
+60:            				}
+61:            			}
+62:            		}
+63:            		if(sign1 != 0) { 
+64:            			f1_as_mant1 ^= 0xFFFFFF;
+65:            			f1_as_mant1++;
+66:            		}
+67:            		if(sign2 != 0) {
+68:            			f2_as_mant2 ^= 0xFFFFFF;
+69:            			f2_as_mant2++;
+70:            		}
+71:            		sign1 = 0;
+72:            		f1_as_mant1 += f2_as_mant2;
+73:            		if(f1_as_mant1 & 0x800000) {
+74:            			f1_as_mant1 ^= 0xFFFFFF;
+75:            			f1_as_mant1++;
+76:            			sign1 = 1;
+77:            		}
+78:            	}
+79:            	__ftpack(&f1_as_mant1, exp1);
+80:            	if(sign1)
+81:            		f1_as_mant1 ^= 0x800000;
+82:            	return f1;
+83:            }
+84:            #else
+85:            float
+86:            __ftadd(float f1, float f2)
+87:            {
+88:            	unsigned char	exp1, exp2, sign;
+89:            
+90:            	exp1 = f1_as_mant1 >> 15;
+02D7  0820     MOVF __pcstackBANK0, W
+02D8  00FB     MOVWF f1
+02D9  0821     MOVF 0x21, W
+02DA  00FC     MOVWF 0x7C
+02DB  0822     MOVF 0x22, W
+02DC  00FD     MOVWF 0x7D
+02DD  1003     BCF STATUS, 0x0
+02DE  0D7C     RLF 0x7C, W
+02DF  0D7D     RLF 0x7D, W
+02E0  00A8     MOVWF sign
+91:            	exp2 = f2_as_mant2 >> 15;
+02E1  0823     MOVF cntr, W
+02E2  00FB     MOVWF f1
+02E3  0824     MOVF f3, W
+02E4  00FC     MOVWF 0x7C
+02E5  0825     MOVF 0x25, W
+02E6  00FD     MOVWF 0x7D
+02E7  1003     BCF STATUS, 0x0
+02E8  0D7C     RLF 0x7C, W
+02E9  0D7D     RLF 0x7D, W
+02EA  00A7     MOVWF exp
+92:            	if(exp1 == 0 || exp1 < exp2  && (unsigned char)(exp2-exp1) > sizeof(f1)*8)
+02EB  0828     MOVF sign, W
+02EC  1903     BTFSC STATUS, 0x2
+02ED  2AFA     GOTO 0x2FA
+02EE  0827     MOVF exp, W
+02EF  0228     SUBWF sign, W
+02F0  0827     MOVF exp, W
+02F1  1803     BTFSC STATUS, 0x0
+02F2  2B02     GOTO 0x302
+02F3  00FB     MOVWF f1
+02F4  0828     MOVF sign, W
+02F5  02FB     SUBWF f1, F
+02F6  3019     MOVLW 0x19
+02F7  027B     SUBWF f1, W
+02F8  1C03     BTFSS STATUS, 0x0
+02F9  2B01     GOTO 0x301
+93:            		return f2;
+02FA  0823     MOVF cntr, W
+02FB  00A0     MOVWF __pcstackBANK0
+02FC  0824     MOVF f3, W
+02FD  00A1     MOVWF 0x21
+02FE  0825     MOVF 0x25, W
+02FF  00A2     MOVWF 0x22
+0300  0008     RETURN
+94:            	if(exp2 == 0 || exp1 > exp2  && (unsigned char)(exp1-exp2) > sizeof(f1)*8)
+0301  0827     MOVF exp, W
+0302  1903     BTFSC STATUS, 0x2
+0303  0008     RETURN
+0304  0828     MOVF sign, W
+0305  0227     SUBWF exp, W
+0306  1803     BTFSC STATUS, 0x0
+0307  2B10     GOTO 0x310
+0308  0828     MOVF sign, W
+0309  00FB     MOVWF f1
+030A  0827     MOVF exp, W
+030B  02FB     SUBWF f1, F
+030C  3019     MOVLW 0x19
+030D  027B     SUBWF f1, W
+030E  1803     BTFSC STATUS, 0x0
+030F  0008     RETURN
+95:            		return f1;
+96:            	sign = 6;
+0310  3006     MOVLW 0x6
+0311  00A6     MOVWF sign
+97:            	if(f1_as_mant1 & 0x800000L)
+0312  1BA2     BTFSC 0x22, 0x7
+98:            		sign |= 0x80;
+0313  17A6     BSF sign, 0x7
+99:            	if(f2_as_mant2 & 0x800000L)
+0314  1BA5     BTFSC 0x25, 0x7
+100:           		sign |= 0x40;
+0315  1726     BSF sign, 0x6
+101:           	f1_as_mant1 |= 0x8000UL;
+0316  17A1     BSF 0x21, 0x7
+102:           	f1_as_mant1 &= 0xFFFFUL;
+0317  01A2     CLRF 0x22
+103:           	f2_as_mant2 |= 0x8000UL;
+0318  17A4     BSF f3, 0x7
+104:           	f2_as_mant2 &= 0xFFFFUL;
+0319  01A5     CLRF 0x25
+105:           	// determine the smaller number. 
+106:           	if(exp1 < exp2) {
+031A  0827     MOVF exp, W
+031B  0228     SUBWF sign, W
+031C  1803     BTFSC STATUS, 0x0
+031D  2B35     GOTO 0x335
+107:           		// f1 has the smaller exponent - we can shift f2_as_mant2 up to 6 bits
+108:           		// left, decrementing exp2.
+109:           		do {
+110:           			f2_as_mant2 <<= 1;
+031E  35A3     LSLF cntr, F
+031F  0DA4     RLF f3, F
+0320  0DA5     RLF 0x25, F
+111:           			exp2--;
+0321  03A7     DECF exp, F
+112:           		} while(exp2 != exp1 && --sign & 7);
+0322  0827     MOVF exp, W
+0323  0628     XORWF sign, W
+0324  1903     BTFSC STATUS, 0x2
+0325  2B30     GOTO 0x330
+0326  03A6     DECF sign, F
+0327  0826     MOVF sign, W
+0328  3907     ANDLW 0x7
+0329  1903     BTFSC STATUS, 0x2
+032A  2B30     GOTO 0x330
+032B  2B1E     GOTO 0x31E
+113:           		while(exp1 != exp2) {
+0330  0828     MOVF sign, W
+0331  0627     XORWF exp, W
+0332  1903     BTFSC STATUS, 0x2
+0333  2B4F     GOTO 0x34F
+0334  2B2C     GOTO 0x32C
+114:           			f1_as_mant1 >>= 1;
+032C  36A2     LSRF 0x22, F
+032D  0CA1     RRF 0x21, F
+032E  0CA0     RRF __pcstackBANK0, F
+115:           			exp1++;
+032F  0AA8     INCF sign, F
+116:           		}
+117:           	} else if(exp1 > exp2) {
+0335  0828     MOVF sign, W
+0336  0227     SUBWF exp, W
+0337  1803     BTFSC STATUS, 0x0
+0338  2B4F     GOTO 0x34F
+118:           		// f2 has the smaller exponent - we can shift f1_as_mant1 up to 6 bits
+119:           		// left, decrementing exp2.
+120:           		do {
+121:           			f1_as_mant1 <<= 1;
+0339  35A0     LSLF __pcstackBANK0, F
+033A  0DA1     RLF 0x21, F
+033B  0DA2     RLF 0x22, F
+122:           			exp1--;
+033C  03A8     DECF sign, F
+123:           		} while(exp2 != exp1 && --sign & 7);
+033D  0827     MOVF exp, W
+033E  0628     XORWF sign, W
+033F  1903     BTFSC STATUS, 0x2
+0340  2B4B     GOTO 0x34B
+0341  03A6     DECF sign, F
+0342  0826     MOVF sign, W
+0343  3907     ANDLW 0x7
+0344  1903     BTFSC STATUS, 0x2
+0345  2B4B     GOTO 0x34B
+0346  2B39     GOTO 0x339
+124:           		while(exp1 != exp2) {
+034B  0828     MOVF sign, W
+034C  0627     XORWF exp, W
+034D  1D03     BTFSS STATUS, 0x2
+034E  2B47     GOTO 0x347
+125:           			f2_as_mant2 >>= 1;
+0347  36A5     LSRF 0x25, F
+0348  0CA4     RRF f3, F
+0349  0CA3     RRF cntr, F
+126:           			exp2++;
+034A  0AA7     INCF exp, F
+127:           		}
+128:           	}
+129:           	if(sign & 0x80) { 
+034F  1FA6     BTFSS sign, 0x7
+0350  2B5A     GOTO 0x35A
+130:           		// complement and add 1
+131:           		f1_as_mant1 ^= 0xFFFFFFUL;
+0351  30FF     MOVLW 0xFF
+0352  06A0     XORWF __pcstackBANK0, F
+0353  06A1     XORWF 0x21, F
+0354  06A2     XORWF 0x22, F
+132:           		f1_as_mant1++;
+0355  0AA0     INCF __pcstackBANK0, F
+0356  1903     BTFSC STATUS, 0x2
+0357  0AA1     INCF 0x21, F
+0358  1903     BTFSC STATUS, 0x2
+0359  0AA2     INCF 0x22, F
+133:           	}
+134:           	if(sign & 0x40) {
+035A  1F26     BTFSS sign, 0x6
+035B  2B62     GOTO 0x362
+135:           		// complement and add 1
+136:           		f2_as_mant2 ^= 0xFFFFFFUL;
+035C  2386     CALL 0x386
+137:           		f2_as_mant2++;
+035D  0AA3     INCF cntr, F
+035E  1903     BTFSC STATUS, 0x2
+035F  0AA4     INCF f3, F
+0360  1903     BTFSC STATUS, 0x2
+0361  0AA5     INCF 0x25, F
+138:           	}
+139:           	sign = 0;
+0362  01A6     CLRF sign
+140:           	f2_as_mant2 += f1_as_mant1;
+0363  0820     MOVF __pcstackBANK0, W
+0364  07A3     ADDWF cntr, F
+0365  0821     MOVF 0x21, W
+0366  3DA4     ADDWFC f3, F
+0367  0822     MOVF 0x22, W
+0368  3DA5     ADDWFC 0x25, F
+141:           	if(f2_as_mant2 & 0x800000UL) {
+0369  1FA5     BTFSS 0x25, 0x7
+036A  2B73     GOTO 0x373
+036B  2386     CALL 0x386
+142:           		f2_as_mant2 ^= 0xFFFFFFUL;
+143:           		f2_as_mant2++;
+036C  0AA3     INCF cntr, F
+036D  1903     BTFSC STATUS, 0x2
+036E  0AA4     INCF f3, F
+036F  1903     BTFSC STATUS, 0x2
+0370  0AA5     INCF 0x25, F
+144:           		sign = 1;
+0371  01A6     CLRF sign
+0372  0AA6     INCF sign, F
+145:           	}
+146:           	return __ftpack(f2_as_mant2, exp1, sign);
+0373  0823     MOVF cntr, W
+0374  00F0     MOVWF __pcstackCOMMON
+0375  0824     MOVF f3, W
+0376  00F1     MOVWF 0x71
+0377  0825     MOVF 0x25, W
+0378  00F2     MOVWF 0x72
+0379  0828     MOVF sign, W
+037A  00F3     MOVWF channel
+037B  0826     MOVF sign, W
+037C  00F4     MOVWF sign
+037D  24A6     CALL 0x4A6
+037E  0870     MOVF __pcstackCOMMON, W
+037F  0020     MOVLB 0x0
+0380  00A0     MOVWF __pcstackBANK0
+0381  0871     MOVF 0x71, W
+0382  00A1     MOVWF 0x21
+0383  0872     MOVF 0x72, W
+0384  00A2     MOVWF 0x22
+147:           
+148:           }
+0385  0008     RETURN
+149:           #endif
+---  C:/Program Files (x86)/Microchip/xc8/v1.34/sources/common/float.c  ---------------------------------
+1:             /*	Floating point routines.
+2:             
+3:             	Copyright (c) 2012 Microchip Technology Inc. All rights reserved.
+4:             */
+5:             
+6:             #include	"ftarith.h"
+7:             
+8:             
+9:             //	unpack the operand pointed to. Store the exponent into the location pointed to by exp,
+10:            //	and return the sign (zero is positive)
+11:            
+12:            #ifdef _OLDLIB
+13:            
+14:            unsigned char
+15:            __ftunpack(unsigned short long * arg, unsigned char * exp)
+16:            {
+17:            	unsigned char	sign;
+18:            
+19:            	*exp = sign = *arg >> 15;
+20:            	if(sign == 0) {
+21:            		*arg = 0;
+22:            		return 0;
+23:            	}
+24:            	sign = 0;
+25:            	*arg |= 0x8000;
+26:            	if(*arg & 0x800000)
+27:            		sign++;
+28:            	*arg &= 0xFFFF;
+29:            	return sign;
+30:            }
+31:            
+32:            // normalize and pack the supplied argument into floating point format
+33:            
+34:            void
+35:            __ftpack(unsigned short long * arg, unsigned char exp)
+36:            {
+37:            	if(exp == 0 || *arg == 0) {
+38:            		*arg = 0;
+39:            		return;
+40:            	}
+41:            	while(*arg & 0xFE0000UL) {
+42:            		exp++;
+43:            		*arg >>= 1;
+44:            	}
+45:            	while(*arg & 0xFF0000UL) {
+46:            		exp++;
+47:            		(*arg)++;
+48:            		*arg >>= 1;
+49:            	}
+50:            	while(!(*arg & 0x8000UL)) {
+51:            		exp--;
+52:            		*arg <<= 1;
+53:            	}
+54:            	if(!(exp & 1))
+55:            		*arg &= ~0x8000L;
+56:            	exp >>= 1;
+57:            	*arg |= (unsigned short long)exp << 16;
+58:            }
+59:            
+60:            #else
+61:            float
+62:            __ftpack(unsigned short long arg, unsigned char exp, unsigned char sign)
+63:            {
+64:            	if(exp == 0 || arg == 0)
+04A6  0873     MOVF channel, W
+04A7  1903     BTFSC STATUS, 0x2
+04A8  2CAE     GOTO 0x4AE
+04A9  0872     MOVF 0x72, W
+04AA  0471     IORWF 0x71, W
+04AB  0470     IORWF __pcstackCOMMON, W
+04AC  1D03     BTFSS STATUS, 0x2
+04AD  2CB6     GOTO 0x4B6
+65:            		return 0.0;
+04AE  01F0     CLRF __pcstackCOMMON
+04AF  01F1     CLRF 0x71
+04B0  01F2     CLRF 0x72
+04B1  0008     RETURN
+66:            	while(arg & 0xFE0000UL) {
+04B6  30FE     MOVLW 0xFE
+04B7  0572     ANDWF 0x72, W
+04B8  1903     BTFSC STATUS, 0x2
+04B9  2CC4     GOTO 0x4C4
+04BA  2CB2     GOTO 0x4B2
+67:            		exp++;
+04B2  0AF3     INCF channel, F
+68:            		arg >>= 1;
+04B3  36F2     LSRF 0x72, F
+04B4  0CF1     RRF 0x71, F
+04B5  0CF0     RRF __pcstackCOMMON, F
+69:            	}
+70:            	while(arg & 0xFF0000UL) {
+04C4  30FF     MOVLW 0xFF
+04C5  0572     ANDWF 0x72, W
+04C6  1903     BTFSC STATUS, 0x2
+04C7  2CD1     GOTO 0x4D1
+04C8  2CBB     GOTO 0x4BB
+71:            		exp++;
+04BB  0AF3     INCF channel, F
+72:            		(arg)++;
+04BC  0AF0     INCF __pcstackCOMMON, F
+04BD  1903     BTFSC STATUS, 0x2
+04BE  0AF1     INCF 0x71, F
+04BF  1903     BTFSC STATUS, 0x2
+04C0  0AF2     INCF 0x72, F
+73:            		arg >>= 1;
+04C1  36F2     LSRF 0x72, F
+04C2  0CF1     RRF 0x71, F
+04C3  0CF0     RRF __pcstackCOMMON, F
+74:            	}
+75:            	while(!(arg & 0x8000UL) && exp > 1) {
+04C9  3002     MOVLW 0x2
+04CA  0273     SUBWF channel, W
+04CB  1C03     BTFSS STATUS, 0x0
+04CC  2CD3     GOTO 0x4D3
+04D1  1FF1     BTFSS 0x71, 0x7
+04D2  2CC9     GOTO 0x4C9
+76:            		exp--;
+04CD  03F3     DECF channel, F
+77:            		arg <<= 1;
+04CE  35F0     LSLF __pcstackCOMMON, F
+04CF  0DF1     RLF 0x71, F
+04D0  0DF2     RLF 0x72, F
+78:            	}
+79:            	if(!(exp & 1))
+04D3  1C73     BTFSS channel, 0x0
+80:            		arg &= ~0x8000L;
+04D4  13F1     BCF 0x71, 0x7
+81:            	exp >>= 1;
+04D5  36F3     LSRF channel, F
+82:            	arg |= (unsigned short long)exp << 16;
+04D6  0873     MOVF channel, W
+04D7  00F7     MOVWF 0x77
+04D8  01F6     CLRF 0x76
+04D9  01F5     CLRF 0x75
+04DA  0875     MOVF 0x75, W
+04DB  04F0     IORWF __pcstackCOMMON, F
+04DC  0876     MOVF 0x76, W
+04DD  04F1     IORWF 0x71, F
+04DE  0877     MOVF 0x77, W
+04DF  04F2     IORWF 0x72, F
+83:            	if (sign)
+04E0  0874     MOVF sign, W
+04E1  1D03     BTFSS STATUS, 0x2
+84:            		arg |= 0x800000UL;
+04E2  17F2     BSF 0x72, 0x7
+85:               return *(float*)&arg;	
+86:            }
+04E3  0008     RETURN
+87:            
+88:            #endif
+---  C:/Program Files (x86)/Microchip/xc8/v1.34/sources/common/aldiv.c  ---------------------------------
+1:             // long signed unsigned division
+2:             
+3:             signed long int
+4:             #ifdef __PICC__
+5:             #warning TODO: update cgpic and this file to use the other prototype
+6:             __aldiv(signed long int divisor, signed long int dividend)
+7:             #else
+8:             __aldiv(signed long int dividend, signed long int divisor)
+9:             #endif
+10:            {
+11:            	signed long int	quotient;
+12:            	unsigned char	counter, sign;
+13:            
+14:            	sign = 0;
+038B  01F9     CLRF sign
+15:            	if(divisor < 0) {
+038C  1FF3     BTFSS channel, 0x7
+038D  2B9B     GOTO 0x39B
+16:            		divisor = -divisor;
+038E  09F0     COMF __pcstackCOMMON, F
+038F  09F1     COMF 0x71, F
+0390  09F2     COMF 0x72, F
+0391  09F3     COMF channel, F
+0392  0AF0     INCF __pcstackCOMMON, F
+0393  1903     BTFSC STATUS, 0x2
+0394  0AF1     INCF 0x71, F
+0395  1903     BTFSC STATUS, 0x2
+0396  0AF2     INCF 0x72, F
+0397  1903     BTFSC STATUS, 0x2
+0398  0AF3     INCF channel, F
+17:            		sign = 1;
+0399  01F9     CLRF sign
+039A  0AF9     INCF sign, F
+18:            	}
+19:            	if(dividend < 0) {
+039B  1FF7     BTFSS 0x77, 0x7
+039C  2BAA     GOTO 0x3AA
+20:            		dividend = -dividend;
+039D  09F4     COMF sign, F
+039E  09F5     COMF 0x75, F
+039F  09F6     COMF 0x76, F
+03A0  09F7     COMF 0x77, F
+03A1  0AF4     INCF sign, F
+03A2  1903     BTFSC STATUS, 0x2
+03A3  0AF5     INCF 0x75, F
+03A4  1903     BTFSC STATUS, 0x2
+03A5  0AF6     INCF 0x76, F
+03A6  1903     BTFSC STATUS, 0x2
+03A7  0AF7     INCF 0x77, F
+21:            		sign ^= 1;
+03A8  3001     MOVLW 0x1
+03A9  06F9     XORWF sign, F
+22:            	}
+23:            	quotient = 0;
+03AA  01FA     CLRF quotient
+03AB  01FB     CLRF f1
+03AC  01FC     CLRF 0x7C
+03AD  01FD     CLRF 0x7D
+24:            	if(divisor != 0) {
+03AE  0873     MOVF channel, W
+03AF  0472     IORWF 0x72, W
+03B0  0471     IORWF 0x71, W
+03B1  0470     IORWF __pcstackCOMMON, W
+03B2  1903     BTFSC STATUS, 0x2
+03B3  2BE0     GOTO 0x3E0
+25:            		counter = 1;
+03B4  01F8     CLRF c
+26:            		while((divisor & 0x80000000UL) == 0) {
+03B6  1BF3     BTFSC channel, 0x7
+03B7  2BBD     GOTO 0x3BD
+03BC  2BB5     GOTO 0x3B5
+27:            			divisor <<= 1;
+03B8  35F0     LSLF __pcstackCOMMON, F
+03B9  0DF1     RLF 0x71, F
+03BA  0DF2     RLF 0x72, F
+03BB  0DF3     RLF channel, F
+28:            			counter++;
+03B5  0AF8     INCF c, F
+29:            		}
+30:            		do {
+31:            			quotient <<= 1;
+03BD  35FA     LSLF quotient, F
+03BE  0DFB     RLF f1, F
+03BF  0DFC     RLF 0x7C, F
+03C0  0DFD     RLF 0x7D, F
+32:            			if((unsigned long)divisor <= (unsigned long)dividend) {
+03C1  0873     MOVF channel, W
+03C2  0277     SUBWF 0x77, W
+03C3  1D03     BTFSS STATUS, 0x2
+03C4  2BCF     GOTO 0x3CF
+03C5  0872     MOVF 0x72, W
+03C6  0276     SUBWF 0x76, W
+03C7  1D03     BTFSS STATUS, 0x2
+03C8  2BCF     GOTO 0x3CF
+03C9  0871     MOVF 0x71, W
+03CA  0275     SUBWF 0x75, W
+03CB  1D03     BTFSS STATUS, 0x2
+03CC  2BCF     GOTO 0x3CF
+03CD  0870     MOVF __pcstackCOMMON, W
+03CE  0274     SUBWF sign, W
+03CF  1C03     BTFSS STATUS, 0x0
+03D0  2BDA     GOTO 0x3DA
+33:            				dividend -= divisor;
+03D1  0870     MOVF __pcstackCOMMON, W
+03D2  02F4     SUBWF sign, F
+03D3  0871     MOVF 0x71, W
+03D4  3BF5     SUBWFB 0x75, F
+03D5  0872     MOVF 0x72, W
+03D6  3BF6     SUBWFB 0x76, F
+03D7  0873     MOVF channel, W
+03D8  3BF7     SUBWFB 0x77, F
+34:            				quotient |= 1;
+03D9  147A     BSF quotient, 0x0
+35:            			}
+36:            			*(unsigned long int *)&divisor >>= 1;
+03DA  36F3     LSRF channel, F
+03DB  0CF2     RRF 0x72, F
+03DC  0CF1     RRF 0x71, F
+03DD  0CF0     RRF __pcstackCOMMON, F
+37:            		} while(--counter != 0);
+03DE  0BF8     DECFSZ c, F
+03DF  2BBD     GOTO 0x3BD
+38:            	}
+39:            	if(sign)
+03E0  0879     MOVF sign, W
+03E1  1903     BTFSC STATUS, 0x2
+03E2  2BEE     GOTO 0x3EE
+40:            		quotient = -quotient;
+03E3  09FA     COMF quotient, F
+03E4  09FB     COMF f1, F
+03E5  09FC     COMF 0x7C, F
+03E6  09FD     COMF 0x7D, F
+03E7  0AFA     INCF quotient, F
+03E8  1903     BTFSC STATUS, 0x2
+03E9  0AFB     INCF f1, F
+03EA  1903     BTFSC STATUS, 0x2
+03EB  0AFC     INCF 0x7C, F
+03EC  1903     BTFSC STATUS, 0x2
+03ED  0AFD     INCF 0x7D, F
+41:            	return quotient;
+03EE  087D     MOVF 0x7D, W
+03EF  00F3     MOVWF channel
+03F0  087C     MOVF 0x7C, W
+03F1  00F2     MOVWF 0x72
+03F2  087B     MOVF f1, W
+03F3  00F1     MOVWF 0x71
+03F4  087A     MOVF quotient, W
+03F5  00F0     MOVWF __pcstackCOMMON
+42:            }
+03F6  0008     RETURN

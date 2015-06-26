@@ -1,0 +1,553 @@
+[p PRO_MODE GLOBOPT AUTOSTATIC PIC14 PIC14E SPEEDOPT ]
+[d version 1.1 ]
+[d edition pro ]
+[d chip 16F1507 ]
+[d frameptr 6 ]
+"85 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/adc.c
+[e E2664 . `uc
+Temp_channel 29
+FVR_channel 31
+ainVBatt 4
+ainVSolar 8
+]
+"550 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\main_0.c
+[e E2938 . `uc
+Temp_channel 29
+FVR_channel 31
+ainVBatt 4
+ainVSolar 8
+]
+"6 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+"86 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+"56 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+"4 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftge.c
+[v ___ftge __ftge `(b  1 e 0 0 ]
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+"28 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lwtoft.c
+[v ___lwtoft __lwtoft `(f  1 e 3 0 ]
+"73 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\main_0.c
+[v _main main `(i  1 e 2 0 ]
+"125
+[v _SolenoidManage SolenoidManage `(v  1 e 0 0 ]
+"433
+[v _LEDsManage LEDsManage `(v  1 e 0 0 ]
+"491
+[v _ImAliveManage ImAliveManage `(v  1 e 0 0 ]
+"523
+[v _WakeUpZigbee WakeUpZigbee `(v  1 e 0 0 ]
+"536
+[v _ResetZigbee ResetZigbee `(v  1 e 0 0 ]
+"544
+[v _ReadainVBatt ReadainVBatt `(f  1 e 3 0 ]
+"559
+[v _ReadPHVVoltage ReadPHVVoltage `(f  1 e 3 0 ]
+"65 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/adc.c
+[v _ADC_Initialize ADC_Initialize `(v  1 e 0 0 ]
+"109
+[v _ADC_GetConversion ADC_GetConversion `(ui  1 e 2 0 ]
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/fvr.c
+[v _FVR_Initialize FVR_Initialize `(v  1 e 0 0 ]
+"52 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 0 0 ]
+"67 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/mcc.c
+[v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 0 0 ]
+"79
+[v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 0 0 ]
+"54 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 0 0 ]
+"82
+[v _PIN_MANAGER_IOC PIN_MANAGER_IOC `(v  1 e 0 0 ]
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/pwm1.c
+[v _PWM1_Initialize PWM1_Initialize `(v  1 e 0 0 ]
+"71
+[v _PWM1_LoadDutyValue PWM1_LoadDutyValue `(v  1 e 0 0 ]
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/pwm2.c
+[v _PWM2_Initialize PWM2_Initialize `(v  1 e 0 0 ]
+"64 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr0.c
+[v _TMR0_Initialize TMR0_Initialize `(v  1 e 0 0 ]
+"63 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr1.c
+[v _TMR1_Initialize TMR1_Initialize `(v  1 e 0 0 ]
+"91
+[v _TMR1_StartTimer TMR1_StartTimer `(v  1 e 0 0 ]
+"141
+[v _TMR1_ISR TMR1_ISR `(v  1 e 0 0 ]
+"157
+[v _TMR1_CallBack TMR1_CallBack `(v  1 e 0 0 ]
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr2.c
+[v _TMR2_Initialize TMR2_Initialize `(v  1 e 0 0 ]
+"77
+[v _TMR2_StartTimer TMR2_StartTimer `(v  1 e 0 0 ]
+[s S234 . 1 `uc 1 IOCIF 1 0 :1:0 
+`uc 1 INTF 1 0 :1:1 
+`uc 1 TMR0IF 1 0 :1:2 
+`uc 1 IOCIE 1 0 :1:3 
+`uc 1 INTE 1 0 :1:4 
+`uc 1 TMR0IE 1 0 :1:5 
+`uc 1 PEIE 1 0 :1:6 
+`uc 1 GIE 1 0 :1:7 
+]
+"360 C:\Program Files (x86)\Microchip\xc8\v1.34\include\pic16f1507.h
+[s S243 . 1 `uc 1 . 1 0 :2:0 
+`uc 1 T0IF 1 0 :1:2 
+`uc 1 . 1 0 :2:3 
+`uc 1 T0IE 1 0 :1:5 
+]
+[u S248 . 1 `S234 1 . 1 0 `S243 1 . 1 0 ]
+[v _INTCONbits INTCONbits `VES248  1 e 1 @11 ]
+[s S89 . 1 `uc 1 TMR1IF 1 0 :1:0 
+`uc 1 TMR2IF 1 0 :1:1 
+`uc 1 . 1 0 :4:2 
+`uc 1 ADIF 1 0 :1:6 
+`uc 1 TMR1GIF 1 0 :1:7 
+]
+"576
+[u S95 . 1 `S89 1 . 1 0 ]
+[v _PIR1bits PIR1bits `VES95  1 e 1 @17 ]
+"645
+[v _TMR0 TMR0 `VEuc  1 e 1 @21 ]
+"670
+[v _TMR1L TMR1L `VEuc  1 e 1 @22 ]
+"689
+[v _TMR1H TMR1H `VEuc  1 e 1 @23 ]
+"708
+[v _T1CON T1CON `VEuc  1 e 1 @24 ]
+[s S402 . 1 `uc 1 TMR1ON 1 0 :1:0 
+`uc 1 . 1 0 :1:1 
+`uc 1 nT1SYNC 1 0 :1:2 
+`uc 1 T1OSCEN 1 0 :1:3 
+`uc 1 T1CKPS 1 0 :2:4 
+`uc 1 TMR1CS 1 0 :2:6 
+]
+"730
+[s S409 . 1 `uc 1 . 1 0 :4:0 
+`uc 1 T1CKPS0 1 0 :1:4 
+`uc 1 T1CKPS1 1 0 :1:5 
+`uc 1 TMR1CS0 1 0 :1:6 
+`uc 1 TMR1CS1 1 0 :1:7 
+]
+[u S415 . 1 `S402 1 . 1 0 `S409 1 . 1 0 ]
+[v _T1CONbits T1CONbits `VES415  1 e 1 @24 ]
+"779
+[v _T1GCON T1GCON `VEuc  1 e 1 @25 ]
+"848
+[v _TMR2 TMR2 `VEuc  1 e 1 @26 ]
+"867
+[v _PR2 PR2 `VEuc  1 e 1 @27 ]
+"886
+[v _T2CON T2CON `VEuc  1 e 1 @28 ]
+[s S108 . 1 `uc 1 T2CKPS 1 0 :2:0 
+`uc 1 TMR2ON 1 0 :1:2 
+`uc 1 T2OUTPS 1 0 :4:3 
+]
+"907
+[s S112 . 1 `uc 1 T2CKPS0 1 0 :1:0 
+`uc 1 T2CKPS1 1 0 :1:1 
+`uc 1 . 1 0 :1:2 
+`uc 1 TOUTPS0 1 0 :1:3 
+`uc 1 TOUTPS1 1 0 :1:4 
+`uc 1 TOUTPS2 1 0 :1:5 
+`uc 1 TOUTPS3 1 0 :1:6 
+]
+[u S120 . 1 `S108 1 . 1 0 `S112 1 . 1 0 ]
+[v _T2CONbits T2CONbits `VES120  1 e 1 @28 ]
+"956
+[v _TRISA TRISA `VEuc  1 e 1 @140 ]
+"1005
+[v _TRISB TRISB `VEuc  1 e 1 @141 ]
+"1043
+[v _TRISC TRISC `VEuc  1 e 1 @142 ]
+[s S304 . 1 `uc 1 TMR1IE 1 0 :1:0 
+`uc 1 TMR2IE 1 0 :1:1 
+`uc 1 . 1 0 :4:2 
+`uc 1 ADIE 1 0 :1:6 
+`uc 1 TMR1GIE 1 0 :1:7 
+]
+"1118
+[u S310 . 1 `S304 1 . 1 0 ]
+[v _PIE1bits PIE1bits `VES310  1 e 1 @145 ]
+"1187
+[v _OPTION_REG OPTION_REG `VEuc  1 e 1 @149 ]
+[s S199 . 1 `uc 1 PS 1 0 :3:0 
+`uc 1 PSA 1 0 :1:3 
+`uc 1 TMR0SE 1 0 :1:4 
+`uc 1 TMR0CS 1 0 :1:5 
+`uc 1 INTEDG 1 0 :1:6 
+`uc 1 nWPUEN 1 0 :1:7 
+]
+"1210
+[s S206 . 1 `uc 1 PS0 1 0 :1:0 
+`uc 1 PS1 1 0 :1:1 
+`uc 1 PS2 1 0 :1:2 
+`uc 1 . 1 0 :1:3 
+`uc 1 T0SE 1 0 :1:4 
+`uc 1 T0CS 1 0 :1:5 
+]
+[u S213 . 1 `S199 1 . 1 0 `S206 1 . 1 0 ]
+[v _OPTION_REGbits OPTION_REGbits `VES213  1 e 1 @149 ]
+"1325
+[v _WDTCON WDTCON `VEuc  1 e 1 @151 ]
+"1383
+[v _OSCCON OSCCON `VEuc  1 e 1 @153 ]
+"1448
+[v _OSCSTAT OSCSTAT `VEuc  1 e 1 @154 ]
+"1499
+[v _ADRESL ADRESL `VEuc  1 e 1 @155 ]
+"1518
+[v _ADRESH ADRESH `VEuc  1 e 1 @156 ]
+"1537
+[v _ADCON0 ADCON0 `VEuc  1 e 1 @157 ]
+[s S29 . 1 `uc 1 ADON 1 0 :1:0 
+`uc 1 GO_nDONE 1 0 :1:1 
+`uc 1 CHS 1 0 :5:2 
+]
+"1562
+[s S33 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 ADGO 1 0 :1:1 
+`uc 1 CHS0 1 0 :1:2 
+`uc 1 CHS1 1 0 :1:3 
+`uc 1 CHS2 1 0 :1:4 
+`uc 1 CHS3 1 0 :1:5 
+`uc 1 CHS4 1 0 :1:6 
+]
+[s S41 . 1 `uc 1 . 1 0 :1:0 
+`uc 1 GO 1 0 :1:1 
+]
+[u S44 . 1 `S29 1 . 1 0 `S33 1 . 1 0 `S41 1 . 1 0 ]
+[v _ADCON0bits ADCON0bits `VES44  1 e 1 @157 ]
+"1616
+[v _ADCON1 ADCON1 `VEuc  1 e 1 @158 ]
+"1681
+[v _ADCON2 ADCON2 `VEuc  1 e 1 @159 ]
+"1728
+[v _LATA LATA `VEuc  1 e 1 @268 ]
+"1772
+[v _LATB LATB `VEuc  1 e 1 @269 ]
+"1810
+[v _LATC LATC `VEuc  1 e 1 @270 ]
+"1903
+[v _FVRCON FVRCON `VEuc  1 e 1 @279 ]
+"1961
+[v _APFCON APFCON `VEuc  1 e 1 @285 ]
+"1986
+[v _ANSELA ANSELA `VEuc  1 e 1 @396 ]
+"2032
+[v _ANSELB ANSELB `VEuc  1 e 1 @397 ]
+"2066
+[v _ANSELC ANSELC `VEuc  1 e 1 @398 ]
+"2292
+[v _VREGCON VREGCON `VEuc  1 e 1 @407 ]
+"2325
+[v _WPUA WPUA `VEuc  1 e 1 @524 ]
+"2382
+[v _WPUB WPUB `VEuc  1 e 1 @525 ]
+"3139
+[v _PWM1DCL PWM1DCL `VEuc  1 e 1 @1553 ]
+"3174
+[v _PWM1DCH PWM1DCH `VEuc  1 e 1 @1554 ]
+"3243
+[v _PWM1CON PWM1CON `VEuc  1 e 1 @1555 ]
+"3318
+[v _PWM2DCL PWM2DCL `VEuc  1 e 1 @1556 ]
+"3353
+[v _PWM2DCH PWM2DCH `VEuc  1 e 1 @1557 ]
+"3422
+[v _PWM2CON PWM2CON `VEuc  1 e 1 @1558 ]
+"6286
+[v _IOCAF2 IOCAF2 `VEb  1 e 0 @7322 ]
+"6298
+[v _IOCAN2 IOCAN2 `VEb  1 e 0 @7314 ]
+"6310
+[v _IOCAP2 IOCAP2 `VEb  1 e 0 @7306 ]
+"6362
+[v _LATA5 LATA5 `VEb  1 e 0 @2149 ]
+"6368
+[v _LATB6 LATB6 `VEb  1 e 0 @2158 ]
+"6370
+[v _LATB7 LATB7 `VEb  1 e 0 @2159 ]
+"6374
+[v _LATC1 LATC1 `VEb  1 e 0 @2161 ]
+"6376
+[v _LATC2 LATC2 `VEb  1 e 0 @2162 ]
+"6378
+[v _LATC3 LATC3 `VEb  1 e 0 @2163 ]
+"6380
+[v _LATC4 LATC4 `VEb  1 e 0 @2164 ]
+"6382
+[v _LATC5 LATC5 `VEb  1 e 0 @2165 ]
+"6386
+[v _LATC7 LATC7 `VEb  1 e 0 @2167 ]
+"6854
+[v _RA4 RA4 `VEb  1 e 0 @100 ]
+"6858
+[v _RB4 RB4 `VEb  1 e 0 @108 ]
+"6860
+[v _RB5 RB5 `VEb  1 e 0 @109 ]
+"6872
+[v _RC3 RC3 `VEb  1 e 0 @115 ]
+"55 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\main_0.c
+[v _ulgCyclesForReset ulgCyclesForReset `ul  1 e 4 0 ]
+"56
+[v _bInterrupted bInterrupted `b  1 e 0 0 ]
+"57
+[v _pulses pulses `ul  1 e 4 0 ]
+"58
+[v _bDoNotSleep bDoNotSleep `b  1 e 0 0 ]
+"59
+[v _ucValveState ucValveState `uc  1 e 1 0 ]
+"69
+[v _ucIAmAliveON ucIAmAliveON `uc  1 e 1 0 ]
+"70
+[v _ucIAmAliveOFF ucIAmAliveOFF `uc  1 e 1 0 ]
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr0.c
+[v _timer0ReloadVal timer0ReloadVal `VEuc  1 e 1 0 ]
+"57 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr1.c
+[v _timer1ReloadVal timer1ReloadVal `VEui  1 e 2 0 ]
+"73 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\main_0.c
+[v _main main `(i  1 e 2 0 ]
+{
+"89
+[v main@m m `uc  1 a 1 56 ]
+"121
+} 0
+"523
+[v _WakeUpZigbee WakeUpZigbee `(v  1 e 0 0 ]
+{
+"534
+} 0
+"125
+[v _SolenoidManage SolenoidManage `(v  1 e 0 0 ]
+{
+"149
+[v SolenoidManage@lngPulsesNotWorking lngPulsesNotWorking `l  1 a 4 49 ]
+"148
+[v SolenoidManage@lngPulsesWorking lngPulsesWorking `l  1 a 4 43 ]
+"150
+[v SolenoidManage@flainVBatt flainVBatt `f  1 a 3 53 ]
+"147
+[v SolenoidManage@timeForStopping timeForStopping `i  1 a 2 47 ]
+"145
+[v SolenoidManage@timeForSprinkling timeForSprinkling `i  1 a 2 41 ]
+"144
+[v SolenoidManage@timeToCheckingShock timeToCheckingShock `i  1 a 2 37 ]
+"143
+[v SolenoidManage@timeToSupplyShock timeToSupplyShock `i  1 a 2 35 ]
+"142
+[v SolenoidManage@timeForHighVoltageOnSolenoid timeForHighVoltageOnSolenoid `uc  1 a 1 40 ]
+"146
+[v SolenoidManage@timeForDemagnetising timeForDemagnetising `uc  1 a 1 39 ]
+"431
+} 0
+"6 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\aldiv.c
+[v ___aldiv __aldiv `(l  1 e 4 0 ]
+{
+"11
+[v ___aldiv@quotient quotient `l  1 a 4 10 ]
+"12
+[v ___aldiv@sign sign `uc  1 a 1 9 ]
+[v ___aldiv@counter counter `uc  1 a 1 8 ]
+"6
+[v ___aldiv@divisor divisor `l  1 p 4 0 ]
+[v ___aldiv@dividend dividend `l  1 p 4 4 ]
+"42
+} 0
+"536 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\main_0.c
+[v _ResetZigbee ResetZigbee `(v  1 e 0 0 ]
+{
+"539
+[v ResetZigbee@k k `uc  1 a 1 0 ]
+"542
+} 0
+"544
+[v _ReadainVBatt ReadainVBatt `(f  1 e 3 0 ]
+{
+"548
+[v ReadainVBatt@k k `uc  1 a 1 24 ]
+"546
+[v ReadainVBatt@sum sum `f  1 a 3 25 ]
+"557
+} 0
+"67 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/mcc.c
+[v _SYSTEM_Initialize SYSTEM_Initialize `(v  1 e 0 0 ]
+{
+"77
+} 0
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr2.c
+[v _TMR2_Initialize TMR2_Initialize `(v  1 e 0 0 ]
+{
+"75
+} 0
+"77
+[v _TMR2_StartTimer TMR2_StartTimer `(v  1 e 0 0 ]
+{
+"80
+} 0
+"63 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr1.c
+[v _TMR1_Initialize TMR1_Initialize `(v  1 e 0 0 ]
+{
+"89
+} 0
+"91
+[v _TMR1_StartTimer TMR1_StartTimer `(v  1 e 0 0 ]
+{
+"94
+} 0
+"64 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr0.c
+[v _TMR0_Initialize TMR0_Initialize `(v  1 e 0 0 ]
+{
+"78
+} 0
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/pwm2.c
+[v _PWM2_Initialize PWM2_Initialize `(v  1 e 0 0 ]
+{
+"69
+} 0
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/pwm1.c
+[v _PWM1_Initialize PWM1_Initialize `(v  1 e 0 0 ]
+{
+"69
+} 0
+"54 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_Initialize PIN_MANAGER_Initialize `(v  1 e 0 0 ]
+{
+"80
+} 0
+"79 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/mcc.c
+[v _OSCILLATOR_Initialize OSCILLATOR_Initialize `(v  1 e 0 0 ]
+{
+"86
+} 0
+"58 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/fvr.c
+[v _FVR_Initialize FVR_Initialize `(v  1 e 0 0 ]
+{
+"61
+} 0
+"65 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/adc.c
+[v _ADC_Initialize ADC_Initialize `(v  1 e 0 0 ]
+{
+"83
+} 0
+"71 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/pwm1.c
+[v _PWM1_LoadDutyValue PWM1_LoadDutyValue `(v  1 e 0 0 ]
+{
+[v PWM1_LoadDutyValue@dutyValue dutyValue `ui  1 p 2 0 ]
+"77
+} 0
+"433 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\main_0.c
+[v _LEDsManage LEDsManage `(v  1 e 0 0 ]
+{
+"447
+[v LEDsManage@ulgCyclesForLEDs ulgCyclesForLEDs `ul  1 a 4 34 ]
+"445
+[v LEDsManage@intLedsOnTime intLedsOnTime `uc  1 a 1 38 ]
+"488
+} 0
+"4 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftge.c
+[v ___ftge __ftge `(b  1 e 0 0 ]
+{
+[v ___ftge@ff1 ff1 `f  1 p 3 28 ]
+[v ___ftge@ff2 ff2 `f  1 p 3 31 ]
+"13
+} 0
+"559 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\main_0.c
+[v _ReadPHVVoltage ReadPHVVoltage `(f  1 e 3 0 ]
+{
+"564
+[v ReadPHVVoltage@k k `uc  1 a 1 24 ]
+"562
+[v ReadPHVVoltage@sum sum `f  1 a 3 25 ]
+"574
+} 0
+"28 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\lwtoft.c
+[v ___lwtoft __lwtoft `(f  1 e 3 0 ]
+{
+[v ___lwtoft@c c `ui  1 p 2 8 ]
+"31
+} 0
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftmul.c
+[v ___ftmul __ftmul `(f  1 e 3 0 ]
+{
+"65
+[v ___ftmul@f3_as_product f3_as_product `um  1 a 3 4 ]
+"64
+[v ___ftmul@sign sign `uc  1 a 1 8 ]
+[v ___ftmul@cntr cntr `uc  1 a 1 7 ]
+[v ___ftmul@exp exp `uc  1 a 1 3 ]
+"62
+[v ___ftmul@f1 f1 `f  1 p 3 8 ]
+[v ___ftmul@f2 f2 `f  1 p 3 11 ]
+"157
+} 0
+"56 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftdiv.c
+[v ___ftdiv __ftdiv `(f  1 e 3 0 ]
+{
+"60
+[v ___ftdiv@f3 f3 `f  1 a 3 4 ]
+"59
+[v ___ftdiv@sign sign `uc  1 a 1 8 ]
+[v ___ftdiv@exp exp `uc  1 a 1 7 ]
+[v ___ftdiv@cntr cntr `uc  1 a 1 3 ]
+"56
+[v ___ftdiv@f2 f2 `f  1 p 3 8 ]
+[v ___ftdiv@f1 f1 `f  1 p 3 11 ]
+"86
+} 0
+"86 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\ftadd.c
+[v ___ftadd __ftadd `(f  1 e 3 0 ]
+{
+"88
+[v ___ftadd@exp1 exp1 `uc  1 a 1 20 ]
+[v ___ftadd@exp2 exp2 `uc  1 a 1 19 ]
+[v ___ftadd@sign sign `uc  1 a 1 18 ]
+"86
+[v ___ftadd@f1 f1 `f  1 p 3 9 ]
+[v ___ftadd@f2 f2 `f  1 p 3 12 ]
+"148
+} 0
+"62 C:\Program Files (x86)\Microchip\xc8\v1.34\sources\common\float.c
+[v ___ftpack __ftpack `(f  1 e 3 0 ]
+{
+[v ___ftpack@arg arg `um  1 p 3 0 ]
+[v ___ftpack@exp exp `uc  1 p 1 3 ]
+[v ___ftpack@sign sign `uc  1 p 1 4 ]
+"86
+} 0
+"109 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/adc.c
+[v _ADC_GetConversion ADC_GetConversion `(ui  1 e 2 0 ]
+{
+[v ADC_GetConversion@channel channel `E2664  1 a 1 wreg ]
+[v ADC_GetConversion@channel channel `E2664  1 a 1 wreg ]
+"111
+[v ADC_GetConversion@channel channel `E2664  1 a 1 3 ]
+"128
+} 0
+"491 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\main_0.c
+[v _ImAliveManage ImAliveManage `(v  1 e 0 0 ]
+{
+"521
+} 0
+"52 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/interrupt_manager.c
+[v _INTERRUPT_InterruptManager INTERRUPT_InterruptManager `II(v  1 e 0 0 ]
+{
+"64
+} 0
+"141 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/tmr1.c
+[v _TMR1_ISR TMR1_ISR `(v  1 e 0 0 ]
+{
+"155
+} 0
+"157
+[v _TMR1_CallBack TMR1_CallBack `(v  1 e 0 0 ]
+{
+"159
+} 0
+"82 C:\Users\anatolii.terziev.GLOBAL\Desktop\Zigbee11\MplabWork\V5_1_0.X2\mcc_generated_files/pin_manager.c
+[v _PIN_MANAGER_IOC PIN_MANAGER_IOC `(v  1 e 0 0 ]
+{
+"90
+} 0
